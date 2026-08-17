@@ -1,0 +1,796 @@
+/* =============================================================================
+   Credit Danny — page styles: accelerator-application.html
+   Extracted verbatim from the page's inline <style> blocks.
+   ========================================================================== */
+
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('../../fonts/poppins-400.woff2') format('woff2');}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('../../fonts/poppins-600.woff2') format('woff2');}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('../../fonts/poppins-700.woff2') format('woff2');}
+
+
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  
+x-dc{display:none!important}
+
+html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}
+
+@font-face{
+  font-family:"CD Display";
+  src:url("../../fonts/podium.woff2") format("woff2");
+  font-weight:400 900;
+  font-display:swap;
+}
+:root{--font-display:"CD Display","Poppins",Impact,"Arial Narrow",sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;background:#000;font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a,a:hover,a:focus,a:active{text-decoration:none}
+a{color:var(--color-blue-500)}
+a:hover{color:var(--color-blue-400)}
+::selection{background:#0C70C3;color:#fff}
+[data-track]::-webkit-scrollbar{display:none}
+@keyframes cd-logo-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* super-menu entrance: the panel irises out from the More button, then the
+   wordmark, links and socials rise in on a stagger */
+@keyframes cd-menu-iris{from{clip-path:circle(0% at 92% 5%)}to{clip-path:circle(150% at 92% 5%)}}
+@keyframes cd-menu-rise{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes cd-menu-mark{from{opacity:0;transform:translateY(-24px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cd-menu-close{from{opacity:0;transform:rotate(-90deg) scale(.6)}to{opacity:1;transform:rotate(0) scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  [data-menu-panel],[data-menu-panel] *{animation:none !important}
+}
+@keyframes cd-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(0,173,238,.6),0 0 6px 1px rgba(0,173,238,.7)}50%{transform:scale(1.35);box-shadow:0 0 0 6px rgba(0,173,238,0),0 0 14px 3px rgba(0,173,238,.95)}}
+@keyframes cd-float{0%,100%{transform:translateY(-10px)}50%{transform:translateY(10px)}}
+@keyframes cd-glow{0%,100%{opacity:.75}50%{opacity:1}}
+
+@keyframes dc-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes dc-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* hover states, rebuilt from the export's style-hover attrs */
+.cd-hov-nav:hover{color: rgb(0, 173, 238) !important}
+.cd-hov-logo:hover{opacity: 0.75 !important}
+.cd-hov-cta:hover{background: rgb(255, 255, 255) !important;color: rgb(12, 112, 195) !important;border-color: rgb(255, 255, 255) !important}
+.cd-hov-social:hover{background: rgb(255, 255, 255) !important;color: rgb(0, 0, 0) !important;border-color: rgb(255, 255, 255) !important}
+.cd-hov-legal:hover{color: rgb(255, 255, 255) !important}
+.cdm-h0:hover{background:#0C70C3!important;border-color:#fff!important}
+.cdm-h1:hover{color:#00ADEE!important}
+
+/* The panel lives in the DOM from first paint, so it is hidden with
+   `display:none` rather than opacity: an opacity-hidden fixed overlay still
+   swallows every click on the page under it, and its links stay tabbable. */
+[data-menu-panel]{display:none!important;}
+html.cd-menu-open [data-menu-panel]{display:flex!important;}
+/* Above the sticky header, which sits at 9999. The panel's authored z-index is
+   200, so without this the bar paints on top of the full-screen menu. */
+[data-menu-panel]{z-index:10000!important;}
+html.cd-menu-open{overflow:hidden;}
+
+/* -------------------------------------------- the reviews container ----- */
+/* The Trustindex grid lays itself out to the width it is given, and this
+   container was capped at 900px while every other boxed section on the page
+   runs to 1200 or 1280. 900px is three review columns; the section looked
+   pinched between full-width neighbours for no reason other than that number.
+   1280 matches the page's widest container, which is what the section above and
+   below it use. Not in a media query: the cap only binds above ~980px anyway,
+   and on a phone the container is far narrower than either value. */
+.cd-reviews-box{max-width:1280px!important;}
+
+/* ------------------------------------------- the jump-link band --------- */
+/* On a phone the eleven jump links wrap: measured at 390 they came to FOUR
+   rows, 188px tall, and this band is position:sticky at top 0 -- so a fifth of
+   the screen stayed pinned there for the whole page. One line that scrolls
+   sideways instead.
+   The horizontal padding moves off the <nav> and onto the rail. If it stays on
+   the nav, the chips stop 40px short of both edges and the rail looks like it
+   has run out of content when it has not; on the rail it scrolls with them, so
+   the row starts on the 20px gutter and the last chip can reach the edge. */
+@media (max-width:900px){
+  .cd-jump{padding-left:0!important;padding-right:0!important;}
+  .cd-jump-rail{flex-wrap:nowrap!important;justify-content:flex-start!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    max-width:none!important;padding:2px 20px!important;
+    scroll-padding-left:20px!important;
+    scrollbar-width:none!important;-ms-overflow-style:none!important;
+    -webkit-overflow-scrolling:touch!important;
+    /* A hint that there is more to the right. The mask fades the last 26px so
+       a chip runs off rather than stopping dead at a hard edge, which is what
+       makes a rail read as swipeable without adding arrows. */
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%);}
+  .cd-jump-rail::-webkit-scrollbar{display:none!important;}
+  /* Chips keep their own width instead of being squeezed to fit. */
+  .cd-jump-rail > *{flex:0 0 auto!important;white-space:nowrap!important;}
+}
+
+/* ------------------------------------------ the story play buttons ------- */
+/* The export draws its own 76px play button over each testimonial frame. It is
+   the resting-state affordance and it should stay: Wistia's poster state here
+   shows only a slim bottom bar and the click-for-sound button, so removing the
+   big circle outright would leave the frame with nothing obvious to press.
+   What it must not do is sit there during playback, which is what it did.
+   Faded rather than display:none so it does not blink out. */
+.cd-playmark{transition:opacity .22s ease;}
+.cd-playmark.cd-off{opacity:0;}
+
+/* ------------------------------------------- the smart sticky header ----- */
+/* Same behaviour as the Mentorship page: pinned to the top, retracts when the
+   reader scrolls down, comes back the moment they scroll up, and deepens its
+   shadow once the page has moved. The JS is in RUNTIME_JS; this is the part
+   that has to be true before it can work.
+   position:sticky only anchors to the viewport if no ancestor is a scroll
+   container -- which is exactly why .cd-shell above had to become
+   `overflow-x: clip` rather than `hidden`. The Mentorship build hit the same
+   thing with WordPress's inline overflow-x on html/body. */
+header#top{position:sticky!important;top:0!important;z-index:9999!important;
+  box-shadow:0 4px 18px rgba(0,0,0,.45);
+  transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s ease!important;}
+/* Every jump link on this page points at a section, and the bar would otherwise
+   cover the heading it just jumped to. 104px is the 92px bar plus 12px of air. */
+section[id],[id="top"]{scroll-margin-top:104px;}
+@media (prefers-reduced-motion:reduce){
+  /* Still retracts, just without the slide. */
+  header#top{transition:box-shadow .28s ease!important;}
+}
+
+/* ---------------------------------------------- the phantom scrollbar ---- */
+/* The export wraps the whole page in a div with `overflow-x: hidden`, and that
+   single declaration is what puts a second scrollbar down the right-hand side.
+   Per spec, when one axis is not `visible` the other computes to `auto` -- so
+   `overflow-x: hidden` silently makes the wrapper `overflow-y: auto`, i.e. its
+   own scroll container. Measured, it overflows itself by 4px, which is enough
+   to paint a full-height scrollbar that tracks the page and disappears at the
+   end of it.
+   `clip` is the fix rather than removing the rule: it clips exactly like
+   `hidden` but does NOT create a scroll container, so the other axis stays
+   `visible`. A browser too old to know `clip` drops the declaration and keeps
+   the authored `hidden`, which is where we started. */
+.cd-shell{overflow-x:clip!important;}
+
+/* --------------------------------------------------------- ≤1100 --------- */
+@media (max-width:1100px){
+  /* The six story rows fold, and the MEDIA goes first in every one. The export
+     alternates media-left and media-right for rhythm on desktop; once folded,
+     alternating would put the copy above the video on half the rows and below
+     it on the other half, which reads as a mistake rather than as rhythm. */
+  .cd-story{grid-template-columns:minmax(0,1fr)!important;gap:26px!important;}
+  .cd-story-media-last > :last-child{order:-1!important;}
+}
+
+/* ---------------------------------------------------------- ≤900 --------- */
+@media (max-width:900px){
+  /* THE GUTTER. Every section is padded 40px horizontally; on a phone that is
+     more than 10% of the screen on each side. 20px is the house value. */
+  .cd-pad,.cd-inner-pad{padding-left:20px!important;padding-right:20px!important;}
+  /* The story copy panel and the one 44px card are INSIDE a 20px gutter
+     already, so they get a smaller inset rather than the same 20 -- 20 inside
+     20 would put the copy 40px from the screen edge, which is the number the
+     gutter rule exists to get rid of. */
+  .cd-story-pad{padding:30px 24px!important;}
+  .cd-card-pad{padding:26px 22px!important;}
+
+  /* EVERY FOLD IS minmax(0,1fr), NEVER A BARE 1fr.
+     A bare `1fr` is `minmax(auto, 1fr)`, and that auto floor is the track's
+     min-content width -- so the widest indivisible child sets the track and the
+     fold does nothing. Measured at 390px with bare 1fr in place: the Danny row
+     resolved to a 599px track inside a 350px container (its photo is a fixed
+     599px), the hero to 527.9px, and the six #why chips to 206.75px + 199.97px.
+     All three looked folded in the stylesheet and ran off the screen. */
+  .cd-hero-grid,.cd-danny-grid,.cd-endcta-grid{
+    grid-template-columns:minmax(0,1fr)!important;gap:34px!important;}
+  /* Folded, the photo leads in the Danny row: on desktop the copy sits left of
+     it by column order, and stacking copy-then-photo buries the face below a
+     screen of text. */
+  .cd-danny-grid > :first-child{order:-1!important;}
+  .cd-trio,.cd-duo{grid-template-columns:minmax(0,1fr)!important;gap:20px!important;}
+  .cd-quad,.cd-chips{grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:14px!important;}
+  .cd-endcta-grid{text-align:center!important;justify-items:center!important;}
+
+  /* Nothing may be wider than its column. The export sizes several images and
+     frames in fixed pixels drawn for a 1280px canvas. */
+  .cd-hero-grid img,.cd-danny-grid img,.cd-story img,.cd-endcta-grid img,
+  .cd-hero-grid > *,.cd-danny-grid > *,.cd-story > *{max-width:100%!important;}
+
+  /* The chips carry 26px of side padding around short labels; at two per row
+     that padding is what overflows, not the words. */
+  .cd-chips > *{padding-left:12px!important;padding-right:12px!important;
+    min-width:0!important;text-align:center!important;}
+
+  /* Rows that were drawn to sit side by side wrap instead of squeezing. */
+  .cd-card-pad{flex-wrap:wrap!important;}
+
+  /* The two lines pinned to one line by the export. */
+  .cd-wrap{white-space:normal!important;}
+
+  /* THE ONE HAND-SIZED HEADLINE. 599x82 at 86px, drawn for a 1280px canvas.
+     Width and height both go to auto -- keeping the fixed height would clip the
+     second line the moment the text wraps -- and the size becomes a clamp like
+     every other heading on the page. */
+  .cd-danny-title{width:auto!important;height:auto!important;
+    display:block!important;font-size:clamp(38px,11.5vw,64px)!important;
+    line-height:1!important;}
+
+  /* box-sizing, only where it is measured to matter.
+     This export is content-box throughout, so any box carrying BOTH an explicit
+     width and padding adds that padding OUTSIDE the width and overflows.
+     Measured at 390, each results card came to 398px: flex-basis 340 plus 28px
+     of padding a side. A blanket `*{box-sizing:border-box}` would fix that and
+     quietly re-solve every fixed-height box on the page, so this names the one
+     that needs it. */
+  .cd-rescard{box-sizing:border-box!important;}
+
+  /* THE MOBILE BAR, rebuilt to Dustin's reference screenshot (2026-08-10):
+         logo (larger) | Get Started | ................. | hamburger
+     Five nav links do not fit beside the logo on a phone, and the three that go
+     are exactly the three the full-screen menu already lists. */
+  header nav a.cd-navlink{display:none!important;}
+  header img{height:32px!important;}
+  header > div{gap:24px!important;}
+  /* The nav takes the rest of the row so its two items can be spread. Without
+     flex:1 it hugs its own content against the right edge and the button ends
+     up far from the logo instead of beside it. The auto margin after the button
+     is what pushes the hamburger to the far edge -- one declaration instead of
+     a spacer element. */
+  header nav{flex:1 1 auto!important;gap:0!important;}
+  header nav a.cd-cta{order:1!important;margin-right:auto!important;
+    height:34px!important;padding:0 16px!important;font-size:15px!important;
+    white-space:nowrap!important;line-height:1.1!important;}
+  /* "More" goes, the icon stays. The label is a bare text node sitting next to
+     the bars, so there is no element to hide: zeroing the anchor's font-size
+     collapses it, and the three bars keep their size because they are px, not
+     em. The 10px gap goes with it, or it would leave a hole where the word was. */
+  header nav a[href="#menu"]{order:2!important;font-size:0!important;gap:0!important;}
+  header nav a[href="#menu"] > span{width:22px!important;gap:4px!important;}
+  /* Thicker bars. The export draws them at 2px, which reads thin and a little
+     apologetic beside a 750-weight display logo; 3px matches that weight. The
+     gap opens to 4px with them so the icon stays legible rather than closing
+     into a block. */
+  header nav a[href="#menu"] > span > span{height:3px!important;}
+}
+
+/* ---------------------------------------------------------- ≤400 --------- */
+@media (max-width:400px){
+  /* The smallest phones still in use are 360 and 375 wide. At 26px the logo is
+     139px and the two surviving nav items are 171, which with the authored 32px
+     rail gap comes to 342 against 320 of usable width -- measured overflowing at
+     360. Three small reductions clear it without dropping another control. */
+  /* The header no longer shrinks here. That step existed because the old bar
+     carried the word "More", which cost ~50px; with the label gone the full
+     size fits down to 341px, measured. Only the two fixed-pixel boxes below
+     still need this breakpoint. */
+
+  /* The last two fixed-pixel boxes on the page. Both clear a 360px screen and
+     neither clears 320: the guarantee badge is a 300x300 Lottie (the only one
+     using `slice`, which is what identifies it here) and the closing CTA holds
+     a 330px phone mock-up. */
+  [data-lottie-fit="slice"]{width:min(300px,calc(100vw - 44px))!important;
+    height:min(300px,calc(100vw - 44px))!important;}
+  .cd-phone{max-width:100%!important;}
+}
+
+/* ------------------------------------------------------ ≤374 and ≤340 ---- */
+/* Two steps down for the bar, both derived from where it actually stops
+   fitting rather than from round numbers. At full size the row is
+   logo 171 + gap 24 + button 99 + icon 22 = 316, which needs 356px of screen;
+   measured at 360 the button and the hamburger were touching at exactly 0px
+   apart, and 360 is far too common a phone to leave like that. Each step takes
+   every part down together so the bar keeps its rhythm instead of one piece
+   shrinking on its own. */
+@media (max-width:374px){
+  header img{height:30px!important;}
+  header > div{gap:20px!important;}
+  header nav a.cd-cta{height:32px!important;padding:0 14px!important;
+    font-size:14px!important;}
+  header nav a[href="#menu"] > span{width:20px!important;}
+}
+@media (max-width:340px){
+  header img{height:26px!important;}
+  header > div{gap:16px!important;}
+  header nav a.cd-cta{height:30px!important;padding:0 11px!important;
+    font-size:13px!important;}
+  header nav a[href="#menu"] > span{width:18px!important;gap:3px!important;}
+}
+
+/* ---------------------------------------------------------- ≤560 --------- */
+@media (max-width:560px){
+  /* The value props go to ONE column on a phone while the stat cards stay 2x2.
+     Both are repeat(4, 1fr) in the export and they are not the same problem: a
+     stat card is a number and three words, a value prop is a heading and a
+     40-word paragraph. Measured at 390 in two columns, the value-prop copy
+     column is 145px wide and breaks to two words a line. */
+  .cd-vprops{grid-template-columns:minmax(0,1fr)!important;gap:16px!important;}
+
+  /* ONE CARD PER SWIPE. The rail is already scroll-snap-type:x mandatory; what
+     it lacks is a card that fits, so two half-cards show at once and a flick
+     lands between them.
+     The two 52px arrows are FLEX SIBLINGS of the track, not overlays, so they
+     eat 104px plus gaps out of a 350px row. Sizing the card to the viewport
+     therefore cut it off at the right-hand arrow -- measured, and visible in
+     the capture. On a phone the arrows are also the wrong control: the rail is
+     swipeable and it autoplays. They go, and the card takes the full track. */
+  [data-track="results"]{scroll-padding-left:0!important;}
+  [aria-label="Previous"],[aria-label="Next"]{display:none!important;}
+  [data-track="results"] > *{scroll-snap-align:center!important;
+    scroll-snap-stop:always!important;
+    flex:0 0 100%!important;}
+}
+
+/* ==========================================================================
+   MOBILE PASS, 2026-08-12. Dustin's eight-item list off a phone capture.
+
+   Scoped by `data-screen-label`, which the export authors on every section and
+   flatten keeps, rather than by new classes: these are whole-section alignment
+   changes, and a label is a more honest hook than a class invented to carry one
+   rule. Where a specific box needs moving, the existing class is used.
+   ========================================================================== */
+@media (max-width:900px){
+
+  /* 1. HERO HEADLINE ON TWO LINES.
+     The <br> between the halves is already in the markup; at 96px each half
+     wrapped on its own and the headline set to five lines. Measured in the
+     display face: "ELEVATE YOUR CREDIT." costs 6.856px of width per 1px of
+     font-size, so 350px of usable width at 390 allows 51px, and 280px at 320
+     allows 40.8px. 12.8vw resolved to 40.96px at 320 -- 0.16px over, and the
+     line duly wrapped to three. 12.2vw resolves to 39.0 at 320 and 47.6 at 390,
+     which puts each half on one line at both and lets the authored break do the
+     rest. Verified by counting rendered lines, not by reading the number. */
+  [data-screen-label="Hero"] h1{font-size:clamp(34px,12.2vw,58px)!important;}
+
+  /* 2 + 3. THE RECEIPTS: centre the column, and lift the photo above it.
+     The grid's first child is the text column and its second is the photo, so
+     stacking them put a screen of copy before the picture. */
+  [data-screen-label="Proof band"] .cd-hero-grid{text-align:center!important;}
+  [data-screen-label="Proof band"] .cd-hero-grid > div:first-child{
+    align-items:center!important;}
+  [data-screen-label="Proof band"] .cd-hero-grid > div:first-child img{
+    margin-left:auto!important;margin-right:auto!important;}
+  [data-screen-label="Proof band"] .cd-hero-grid > div:nth-child(2){
+    order:-1!important;}
+
+  /* 4. MEET CREDIT DANNY.
+     Three sizes were fighting: the line reads 86px with "Credit Danny" nested
+     at 88px, and the subhead under it is 54px -- BIGGER than the line above it,
+     which is what made the block look uneven. The reference capture wants one
+     line at one size, with a clearly smaller line beneath.
+     Measured: "MEET CREDIT DANNY" costs 6.281px per 1px, so 350px allows 55px;
+     "THE MAN BEHIND THE MOVEMENT" costs 10.087 and allows 34px. */
+  .cd-danny-title{font-size:clamp(38px,14vw,60px)!important;
+    white-space:nowrap!important;text-align:center!important;display:block!important;}
+  .cd-danny-title span{font-size:inherit!important;}
+  [data-screen-label="Meet Credit Danny"] .cd-danny-grid > div:last-child{
+    align-items:center!important;text-align:center!important;}
+  /* The call to action too. Centring the column left it at the gutter because
+     it carries its own align-self, and a left-aligned button under centred copy
+     reads as a miss rather than a choice. */
+  [data-screen-label="Meet Credit Danny"] .cd-danny-grid > div:last-child > *{
+    align-self:center!important;}
+  [data-screen-label="Meet Credit Danny"] h2{
+    font-size:clamp(24px,8.6vw,38px)!important;}
+
+  /* 5. THE GUARANTEE CARD: seal, copy and signature all centred.
+     The card is a flex row that wraps on a phone; its text column was
+     align-items:flex-start with text-align:left inside a centred card. */
+  .cd-card-pad{justify-content:center!important;}
+  .cd-card-pad > div{align-items:center!important;text-align:center!important;}
+  .cd-card-pad p{text-align:center!important;}
+  .cd-card-pad img{margin-left:auto!important;margin-right:auto!important;}
+
+  /* 6. THE VALUE PROPS: icon was centred, heading and copy were not. */
+  .cd-vprops > *{text-align:center!important;align-items:center!important;}
+
+  /* 8. FOOTER, upper block: one rule does it.
+     The content column is a flex column at align-items:normal, which stretches
+     every child to full width -- so the logo, the two social buttons, the
+     address row and the reviews chip all began at the left gutter even though
+     the column itself is text-align:center. Centring the ITEMS shrinks each to
+     its content and centres it. */
+  [data-screen-label="Footer"] .cd-endcta-grid > div:first-child{
+    align-items:center!important;}
+  /* align-self on the CHILDREN as well as align-items on the parent: the logo
+     link and the reviews chip each carry an inline `align-self: flex-start`,
+     which outranks the parent's align-items and left them at the gutter while
+     everything around them centred. Measured, not guessed: the chip reported
+     alignSelf flex-start with margins of 0. */
+  [data-screen-label="Footer"] .cd-endcta-grid > div:first-child > *{
+    align-self:center!important;}
+  [data-screen-label="Footer"] .cd-endcta-grid > div:first-child > div{
+    justify-content:center!important;}
+
+  /* 8. FOOTER, legal row. It lives in the page's own footer ELEMENT, which is
+     not part of the labelled section: a flex row at space-between, which on a
+     phone throws the copyright hard left and the two links hard right.
+     (Written without the literal tag name: the build counts tag occurrences
+     across the whole output, and prose in a comment is counted too.) */
+  footer.cd-pad > div{flex-direction:column!important;align-items:center!important;
+    justify-content:center!important;text-align:center!important;gap:10px!important;}
+  footer.cd-pad > div > div{justify-content:center!important;}
+}
+
+@media (max-width:900px){
+  /* 7. THE TRANSFORMATION CARDS were flush to both edges: measured left 0,
+     right 390 on a 390px viewport, with a 25px radius. The house rule from
+     2026-08-05 is explicit that a box with a radius must not touch the screen
+     edge. The inset is a MARGIN, not padding: the card's own padding is its
+     internal rhythm and widening that would move the content, not the box.
+     At 900, not 560: the cards measured flush at 768 as well, and a rounded box
+     on a tablet edge is the same defect as on a phone edge. */
+  .cd-story-pad{margin-left:20px!important;margin-right:20px!important;}
+}
+
+
+/* ==========================================================================
+   2026-08-12, second homepage pass.
+   ========================================================================== */
+
+/* 6. CARD ORDER. Desktop reads Accelerator, Blueprint, Sponsorship; the phone
+   reads Blueprint, Accelerator, Sponsorship, so the Blueprint leads on the
+   device where only one card is visible at a time.
+
+   The 2026-08-12 export changed the DOM order to Accelerator, Blueprint,
+   Sponsorship -- previously it was Blueprint first, which happened to BE the
+   phone order, so the phone needed no rules at all. It does now: leaving it
+   alone would have shipped the Accelerator first on mobile. Both widths are
+   stated explicitly rather than relying on DOM order, so the next export
+   reordering the markup cannot silently change what a reader sees.
+
+   The featured treatment is not CSS: the 3px blue border and its glow sit on
+   the Blueprint's panel in the markup, so they travel with the card at every
+   width. */
+@media (min-width:901px){
+  .cd-plan-ca{order:1!important;}
+  .cd-plan-bp{order:2!important;}
+  .cd-plan-sp{order:3!important;}
+}
+@media (max-width:900px){
+  .cd-plan-bp{order:1!important;}
+  .cd-plan-ca{order:2!important;}
+  .cd-plan-sp{order:3!important;}
+}
+
+@media (max-width:900px){
+  /* 1. The ten section headings, matched to the Credit Blueprint page, which
+     sets every one of its section titles to a flat 50px on a phone. These were
+     38px, so the two pages read as different designs. Scoped to the ten that
+     carry the export's `clamp(38px, 4.4vw, 62px)`: the proof-band heading, the
+     Meet Credit Danny subhead and the footer mantra are deliberately not in
+     that set and keep their own sizes. */
+  .cd-sechead{font-size:50px!important;}
+
+  /* 2. THE TESTIMONIAL HEADINGS inside the transformation stories were 66px on
+     a phone -- the same size they take on a 1440px desktop, because the export
+     sets them as a fixed value rather than a clamp.
+
+     Dustin raised these from clamp(26px,7.2vw,34px) to a flat 50px on
+     2026-08-12: these cards ARE the section on a phone, and at 34px they read
+     as captions under the photo rather than as the claim. That deliberately
+     puts them level with .cd-sechead above rather than below it.
+
+     Flat, not a clamp: 50px was asked for, and a clamp would only deliver it
+     above ~694px of viewport, which is no phone. All six story headings share
+     this selector, so the one Dustin did not list by name (Sulem) moves with
+     the five he did rather than being left as the odd card out. */
+  .cd-story h3{font-size:50px!important;line-height:1.06!important;}
+}
+
+
+
+/* THE POPUP MENU IN TWO COLUMNS.
+   `auto 1px auto` rather than fractions: the columns are as wide as their
+   longest link and no wider, so the hairline sits in the real optical centre
+   of the pair instead of wherever a 1fr split happened to put it. */
+#menu .cdm-nav{display:grid;grid-template-columns:auto 1px auto;
+  align-items:start;justify-content:center;
+  column-gap:clamp(34px,4.6vw,84px);width:100%;max-width:1180px;
+  text-align:left;}
+#menu .cdm-col{display:flex;flex-direction:column;align-items:flex-start;}
+#menu .cdm-col-p{gap:22px;}
+/* TOP-ALIGNED. It was centred when the split was eight items against four,
+   because a 396px column beside a 200px one left the lower half of the divider
+   running past nothing. At six against six the columns are 291px and 241px, so
+   centring only buys 24px of balance and costs the alignment of the two
+   columns' first lines, which is the stronger read. */
+#menu .cdm-col-s{gap:24px;align-self:start;padding-top:7px;}
+#menu .cdm-rule{align-self:stretch;width:1px;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.22) 16%,
+    rgba(255,255,255,.22) 84%,rgba(255,255,255,0));}
+
+/* Two columns are shorter than one, which left the panel top-heavy with a
+   dead band under the social row. `safe center` falls back to flex-start the
+   moment the content is taller than the panel, so a short laptop window can
+   still reach the top of the menu; plain `center` would push the overflow
+   above the scroll origin where nothing can scroll to it. */
+#menu[data-menu-panel]{justify-content:safe center !important;}
+
+/* THE PHONE IS NOT A NARROW DESKTOP. Below 860 the two columns go back to the
+   single centred list this menu had before they existed: one type size, one
+   gap, no divider, no dimming. Folded, the two-tier idea read as a long list
+   with a rule through the middle and two sizes for no reason a reader could
+   see.
+
+   `display:contents` dissolves the two column wrappers so all twelve anchors
+   become direct children of the nav, which is what lets the cdm-m* order
+   classes below sequence them across both columns. The size and spacing
+   overrides need !important because the resting look is an inline style on
+   each anchor, which is how the rest of this chrome is written.
+
+   860px is also where the two columns would otherwise start hyphenating: it is
+   the width at which the longest primary and the longest secondary link stop
+   fitting side by side at their minimum sizes. */
+@media (max-width:860px){
+  #menu .cdm-nav{display:flex;flex-direction:column;align-items:center;
+    gap:26px;text-align:center;max-width:100%;}
+  #menu .cdm-col{display:contents;}
+  #menu .cdm-rule{display:none;}
+  #menu .cdm-nav a{font-size:clamp(26px,2.1vw,38px) !important;
+    letter-spacing:.02em !important;color:#fff !important;}
+  #menu .cdm-m1{order:1;}
+  #menu .cdm-m2{order:2;}
+  #menu .cdm-m3{order:3;}
+  #menu .cdm-m4{order:4;}
+  #menu .cdm-m5{order:5;}
+  #menu .cdm-m6{order:6;}
+  #menu .cdm-m7{order:7;}
+  #menu .cdm-m8{order:8;}
+  #menu .cdm-m9{order:9;}
+  #menu .cdm-m10{order:10;}
+  #menu .cdm-m11{order:11;}
+  #menu .cdm-m12{order:12;}
+}
+/* House rule: 20px off the screen edge on a phone, never the desktop 40. */
+@media (max-width:600px){
+  #menu[data-menu-panel]{padding-left:20px !important;padding-right:20px !important;}
+}
+
+#top,#menu{--font-display:"CD Display","Poppins",Impact,"Arial Narrow",sans-serif;}
+
+#top a,#top a:hover,#top a:focus,#top a:active,#menu a,#menu a:hover,#menu a:focus,#menu a:active{text-decoration:none !important;}
+#top a:hover,#menu a:hover{transform:none !important;}
+
+html{overflow-x:clip !important;}
+body{overflow-x:visible !important;overflow-y:visible !important;}
+html,body{height:auto !important;min-height:100% !important;}
+
+
+@font-face{font-family:"Podium Sharp";src:url("../../fonts/podium.woff2") format("woff2");font-weight:400 900;font-display:swap;}
+:root{
+--color-black:#000000;
+--color-white:#ffffff;
+--color-blue-900:#00063a;
+--color-blue-800:#001d53;
+--color-blue-700:#005c97;
+--color-blue-600:#0c70c3;
+--color-blue-500:#009cdb;
+--color-blue-400:#00adee;
+--color-gray-100:#f2f2f2;
+--color-gray-200:#d9d9d9;
+--color-gold:#ffba40;
+--color-success:#1f9d55;
+
+--brand-primary:var(--color-blue-600);
+--brand-accent:var(--color-blue-400);
+--brand-deep:var(--color-blue-700);
+
+--surface-page:var(--color-white);
+--surface-inverse:var(--color-black);
+--surface-card:var(--color-white);
+--surface-tint:#eaf5ff;
+
+--text-primary:var(--color-black);
+--text-inverse:var(--color-white);
+--text-brand:var(--color-blue-600);
+--text-muted:#5a5a5a;
+
+--border-subtle:rgba(0,0,0,0.1);
+--border-inverse:rgba(255,255,255,0.25);
+
+--gradient-hero:linear-gradient(220deg,var(--color-black) 28%,var(--color-blue-600) 98%);
+--gradient-hex-field:linear-gradient(160deg,var(--color-blue-900),var(--color-blue-400));
+--gradient-tint-fade:linear-gradient(180deg,#b3ddff 0%,rgba(255,255,255,0) 100%);
+
+--link-color:var(--color-blue-600);
+--link-hover-color:var(--color-blue-700);
+}
+
+
+
+
+
+:root{
+--font-display:"Podium Sharp",Impact,"Arial Narrow",sans-serif;
+--font-body:"Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-stat:"Bebas Neue",var(--font-display);
+--font-label:"Urbanist",var(--font-body);
+--font-accent:"Alumni Sans SC",var(--font-body);
+--font-script:"Rancho",cursive;
+--font-script-2:"Qwigley",cursive;
+
+--weight-display:750;
+--weight-regular:400;
+--weight-medium:500;
+--weight-semibold:600;
+--weight-bold:700;
+--weight-extrabold:800;
+
+--text-display-xl:128.82px;
+--text-display-lg:66.28px;
+--text-display-md:50px;
+--text-display-sm:40px;
+--text-display-xs:30px;
+
+--text-stat-lg:70px;
+--text-stat-md:50px;
+--text-stat-sm:30px;
+
+--text-body-lg:20px;
+--text-body-md:16px;
+--text-body-sm:14px;
+
+--text-label-lg:18px;
+--text-label-md:16px;
+
+--leading-tight:0.966;
+--leading-display:1.04;
+--leading-body:1.65;
+}
+
+:root{
+--space-1:4px;
+--space-2:8px;
+--space-3:10px;
+--space-4:16px;
+--space-5:20px;
+--space-6:25px;
+--space-7:30px;
+--space-8:40px;
+--space-9:54px;
+--space-10:60px;
+--space-11:74px;
+--space-12:84px;
+--space-13:111px;
+
+--container-max:1920px;
+--container-padding:230px;
+--container-padding-tablet:64px;
+--container-padding-mobile:24px;
+}
+
+:root{
+--radius-sm:6.78px;
+--radius-md:10px;
+--radius-lg:25px;
+--radius-pill:999px;
+
+--shadow-card:0px 0px 10px 0px rgba(0,0,0,0.1);
+--shadow-lifted:0px 8px 30px 0px rgba(0,0,0,0.18);
+
+--blur-glass:67.846px;
+--glass-bg:rgba(25,25,25,0.4);
+--glass-border:1px solid rgba(255,255,255,0.15); /* @kind other */
+
+--ease-standard:cubic-bezier(.4,0,.2,1); /* @kind other */
+--duration-fast:150ms; /* @kind other */
+--duration-standard:250ms; /* @kind other */
+}
+
+
+    body { margin: 0; background: #F4F8FE; }
+    a { color: var(--color-blue-600); text-decoration: none; }
+    a:hover { color: var(--color-blue-700); }
+    input::placeholder { color: #9aa3ad; }
+    select:invalid { color: #9aa3ad; }
+    @media (max-width: 1000px) { [data-cols] { grid-template-columns: minmax(0, 1fr) !important; } }
+  
+
+@media (max-width:1000px){
+  /* MOBILE ORDER: title, form, reviews.
+     The export stacks its two columns here, which gives title, reviews, form:
+     the reviews widget sits in the LEFT column above the form, and once the
+     columns are on top of each other it lands between the headline and the
+     thing the visitor came to do.
+     `order` cannot fix that on its own, because the three boxes live in two
+     different containers and order only sorts siblings. `display: contents` on
+     the left column removes its box WITHOUT removing its children, so the
+     title and the reviews become grid items alongside the form card and all
+     three can then be sorted against each other. */
+  .fm-col{display:contents!important;}
+  .fm-title{order:1!important;}
+  .fm-formcol{order:2!important;}
+  .fm-reviews{order:3!important;margin-top:0!important;}
+  /* The left column's own 32px flex gap goes with its box, so the grid has to
+     supply the rhythm instead of inheriting its 25px column gap. */
+  [data-cols]{row-gap:32px!important;}
+}
+
+
+
+/* The blue eyebrow pills above each transformation title must never wrap.
+   "Results From Our Credit Blueprint Plan" needs 372px at the design's 11px /
+   0.3em, but the column is only vw-90 wide, so below about 462px the pill broke
+   onto THREE lines. Letter-spacing is the real cost here -- 38 characters at
+   0.3em is 125px of pure tracking -- so it comes down first, and the font size
+   only shrinks on the narrowest screens. nowrap is the guarantee; the sizing is
+   what keeps that guarantee from overflowing.
+   465px is where the break actually is: the homepage column is vw-90 and the
+   widest pill needs 372px, so it survives down to 462. Above that the design
+   is left exactly as drawn. */
+@media (max-width:465px){
+  .cd-eyebrow{
+    white-space:nowrap !important;
+    font-size:min(10px, calc(2.7vw - 1px)) !important;
+    letter-spacing:0.1em !important;
+    padding:8px 12px !important;
+  }
+}
+
+/* The mobile menu panel's close button sat on top of the wordmark.
+   Both were drawn at 1440, where they cannot touch. The wordmark is
+   min(760px,72vw) and centred, so its right edge is at 0.86W; the button is
+   52px at right:40px, so its left edge is at W-92. Those cross at W=657, and
+   below that the X is horizontally INSIDE the wordmark. Vertically they
+   overlap at every width: the panel's 38px top padding plus the wordmark's
+   14px margin puts the logo's top edge at 52px, and the button spans 32..84.
+
+   Separating them horizontally is not on offer. Clearing a 52px button at
+   320px would mean a wordmark of about 52vw against the drawn 72vw, which is
+   a redraw rather than a nudge. So the separation is vertical, which is also
+   what was asked for: the button goes to the corner -- 20px further up and
+   28px further right -- and the wordmark starts below it. Button bottom
+   12+52=64, logo top 38+38=76, so a 12px gap.
+
+   Nothing inside the panel moves RELATIVE to anything else: the stack simply
+   begins 24px lower, every gap between blocks is untouched, and the panel
+   already scrolls. Above 760px the design is left exactly as drawn.
+
+   !important is load-bearing, not decoration. Both elements carry the
+   designer's geometry in an inline style attribute, and an inline style
+   outranks every normal declaration no matter how specific the selector. */
+@media (max-width:760px){
+  #menu [aria-label="Close menu"]{
+    top:12px !important;
+    right:12px !important;
+  }
+  #menu a[aria-label="Credit Danny home"] img{
+    margin-top:38px !important;
+  }
+}

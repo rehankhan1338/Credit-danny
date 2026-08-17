@@ -1,0 +1,298 @@
+/* =============================================================================
+   Credit Danny — page styles: mentorship/apply.html
+   Extracted verbatim from the page's inline <style> blocks.
+   ========================================================================== */
+
+:root{
+--color-black:#000000;
+--color-white:#ffffff;
+--color-blue-900:#00063a;
+--color-blue-800:#001d53;
+--color-blue-700:#005c97;
+--color-blue-600:#0c70c3;
+--color-blue-500:#009cdb;
+--color-blue-400:#00adee;
+--color-gray-100:#f2f2f2;
+--color-gray-200:#d9d9d9;
+--color-gold:#ffba40;
+--color-success:#1f9d55;
+
+--brand-primary:var(--color-blue-600);
+--brand-accent:var(--color-blue-400);
+--brand-deep:var(--color-blue-700);
+
+--surface-page:var(--color-white);
+--surface-inverse:var(--color-black);
+--surface-card:var(--color-white);
+--surface-tint:#eaf5ff;
+
+--text-primary:var(--color-black);
+--text-inverse:var(--color-white);
+--text-brand:var(--color-blue-600);
+--text-muted:#5a5a5a;
+
+--border-subtle:rgba(0,0,0,0.1);
+--border-inverse:rgba(255,255,255,0.25);
+
+--gradient-hero:linear-gradient(220deg,var(--color-black) 28%,var(--color-blue-600) 98%);
+--gradient-hex-field:linear-gradient(160deg,var(--color-blue-900),var(--color-blue-400));
+--gradient-tint-fade:linear-gradient(180deg,#b3ddff 0%,rgba(255,255,255,0) 100%);
+
+--link-color:var(--color-blue-600);
+--link-hover-color:var(--color-blue-700);
+}
+:root{
+--font-display:"Podium",Impact,"Arial Narrow",sans-serif;
+--font-body:"Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-stat:"Bebas Neue",var(--font-display);
+--font-label:"Urbanist",var(--font-body);
+--font-accent:"Alumni Sans SC",var(--font-body);
+--font-script:"Rancho",cursive;
+--font-script-2:"Qwigley",cursive;
+
+--weight-display:750;
+--weight-regular:400;
+--weight-medium:500;
+--weight-semibold:600;
+--weight-bold:700;
+--weight-extrabold:800;
+
+--text-display-xl:128.82px;
+--text-display-lg:66.28px;
+--text-display-md:50px;
+--text-display-sm:40px;
+--text-display-xs:30px;
+
+--text-stat-lg:70px;
+--text-stat-md:50px;
+--text-stat-sm:30px;
+
+--text-body-lg:20px;
+--text-body-md:16px;
+--text-body-sm:14px;
+
+--text-label-lg:18px;
+--text-label-md:16px;
+
+--leading-tight:0.966;
+--leading-display:1.04;
+--leading-body:1.65;
+}
+:root{
+--space-1:4px;
+--space-2:8px;
+--space-3:10px;
+--space-4:16px;
+--space-5:20px;
+--space-6:25px;
+--space-7:30px;
+--space-8:40px;
+--space-9:54px;
+--space-10:60px;
+--space-11:74px;
+--space-12:84px;
+--space-13:111px;
+
+--container-max:1920px;
+--container-padding:230px;
+--container-padding-tablet:64px;
+--container-padding-mobile:24px;
+}
+:root{
+--radius-sm:6.78px;
+--radius-md:10px;
+--radius-lg:25px;
+--radius-pill:999px;
+
+--shadow-card:0px 0px 10px 0px rgba(0,0,0,0.1);
+--shadow-lifted:0px 8px 30px 0px rgba(0,0,0,0.18);
+
+--blur-glass:67.846px;
+--glass-bg:rgba(25,25,25,0.4);
+--glass-border:1px solid rgba(255,255,255,0.15); /* @kind other */
+
+--ease-standard:cubic-bezier(.4,0,.2,1); /* @kind other */
+--duration-fast:150ms; /* @kind other */
+--duration-standard:250ms; /* @kind other */
+}
+@font-face{font-family:"Podium";src:url("../../fonts/podium.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap;}
+
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+/* position:sticky is silently cancelled by ANY ancestor with overflow:hidden,
+   and WordPress/plugins inject `overflow-x:hidden` on html/body through inline
+   <style> that never passes through the style_loader_tag filter. `clip` gives
+   the same horizontal containment without creating a scroll container.
+   Learned the hard way on the mentorship page -- the nav just wasn't sticky. */
+html,body{overflow-x:clip!important;overflow-y:visible!important;}
+body{background:var(--surface-page);color:var(--text-primary);
+  font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+img{max-width:100%;}
+a{color:inherit;}
+
+/* ---- shared chrome, matched to the mentorship page ---- */
+.cd-bar{background:linear-gradient(180deg,#000000 0%,#0C70C3 100%);height:100px;
+  padding:0 clamp(20px,4vw,48px);display:flex;align-items:center;
+  justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.45);
+  position:sticky;top:0;z-index:50;
+  transition:transform .28s,box-shadow .28s;will-change:transform;}
+.cd-bar-inner{width:100%;max-width:1200px;display:flex;align-items:center;
+  justify-content:space-between;}
+.cd-bar-tag{font-family:var(--font-label);font-weight:700;font-size:12px;
+  letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.cd-logo-link{display:inline-flex;text-decoration:none;}
+.cd-logo{height:36px;width:auto;display:block;}
+
+.cd-foot{background:#000;padding:36px clamp(20px,5vw,48px);
+  display:flex;align-items:center;justify-content:center;}
+.cd-foot-inner{width:100%;max-width:1200px;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;}
+.cd-foot-inner span{font-family:var(--font-body);font-size:12px;
+  color:rgba(255,255,255,.45);}
+
+/* ---- dark banner, same gradient as the mentorship hero ---- */
+/* A 220deg linear-gradient is resolved against the ELEMENT's own box, so the
+   same --gradient-hero token renders completely differently in a short box than
+   in a tall one. Measured: the mentorship hero is 1196px tall at desktop while
+   these bands are 367-489px, which compressed the ramp and drove the left edge
+   to full saturation -- rgb(12,112,195) here vs rgb(6,58,101) there.
+   Painting the gradient at the hero's height and showing only the top slice
+   reproduces the hero's actual appearance instead of just its declaration. */
+.cd-band{background-image:var(--gradient-hero);background-color:#000;
+  --cd-hero-h:1196px;
+  background-size:100% var(--cd-hero-h);
+  background-repeat:no-repeat;background-position:left top;
+  color:#fff;position:relative;
+  /* Header padding matches /team exactly (build_team.py .cd-band). */
+  overflow:hidden;padding:clamp(24px,3.5vw,43px) clamp(20px,5vw,48px);}
+.cd-band-inner{max-width:1200px;margin:0 auto;text-align:center;
+  position:relative;z-index:2;}
+.cd-eyebrow{font-family:var(--font-label);font-weight:700;
+  font-size:clamp(11px,2.4vw,13px);letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--color-blue-400);margin:0 0 18px;}
+.cd-h1{font-family:var(--font-display);font-weight:750;text-transform:uppercase;
+  line-height:1.02;letter-spacing:.5px;margin:0;
+  font-size:clamp(42px,7.4vw,78px);}
+/* Highlighted words in the headline use Credit Danny brand blue.
+   Shared by both pages on purpose -- see the parity note at the top of the
+   step-size block below. */
+.cd-h1 em{font-style:normal;color:var(--color-blue-600);}
+.cd-lede{font-family:var(--font-body);font-size:clamp(16px,2.6vw,19px);
+  line-height:1.6;color:rgba(255,255,255,.78);max-width:60ch;
+  margin:22px auto 0;}
+
+/* Matched to the mentorship hero exactly: the linear gradient above plus the
+   hex-pattern texture bleeding off the top-right corner, and nothing else.
+   An earlier version added a radial cyan wash here -- that was invented, the
+   mentorship hero has no such layer, which is why the two didn't match. */
+.cd-band-hex{position:absolute;right:-160px;top:-120px;width:720px;
+  opacity:.32;pointer-events:none;user-select:none;}
+
+/* ---- body section ---- */
+/* Same padding as .cd-band above it. */
+.cd-sec{padding:clamp(24px,3.5vw,43px) clamp(20px,5vw,48px);}
+.cd-sec-inner{max-width:1200px;margin:0 auto;}
+
+/* ---- the form slot ---- */
+.cd-formwrap{max-width:820px;margin:0 auto;}
+.cd-formcard{background:#fff;border:1px solid var(--border-subtle);
+  border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.10);
+  padding:clamp(18px,3vw,30px);}
+/* The slot is a plain block with NO min-height. form_embed.js sets an explicit
+   pixel height on the iframe as the form renders and changes steps; any floor
+   here outlives that and leaves dead space under a short step. Measured: the
+   real form renders at 273px, so a 402px floor left ~130px of blank card.
+
+   The rule below is a PRE-SCRIPT floor and nothing else. form_embed.js MOVES
+   the iframe into a `.ep-wrapper` div it injects, so this direct-child selector
+   deliberately stops matching the instant the script runs -- the script's own
+   inline height then applies with nothing of ours left to fight it. 402px is
+   GHL's declared data-height, used only so the card has a sensible box during
+   the moment before the form boots. */
+.cd-formslot{}
+.cd-formslot > iframe{width:100%;border:none;display:block;height:402px;}
+
+/* Placeholder shown only while the slot is empty -- :only-child means it
+   disappears by itself the moment the GHL embed is pasted in. */
+.cd-formslot-note:only-child{min-height:600px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;text-align:center;
+  border:2px dashed rgba(12,112,195,.38);border-radius:12px;
+  background:repeating-linear-gradient(45deg,rgba(12,112,195,.035) 0 12px,
+    transparent 12px 24px);color:var(--text-muted);padding:40px 24px;}
+.cd-formslot-note b{font-family:var(--font-display);font-weight:750;
+  text-transform:uppercase;letter-spacing:.6px;font-size:20px;
+  color:var(--color-blue-600);}
+.cd-formslot-note span{font-family:var(--font-body);font-size:14px;
+  line-height:1.6;max-width:42ch;}
+.cd-formslot-note code{font-family:ui-monospace,monospace;font-size:12.5px;
+  background:rgba(12,112,195,.10);border-radius:5px;padding:2px 7px;}
+
+/* ---- "what happens next" steps ---- */
+.cd-steps{display:grid;gap:18px;margin:clamp(34px,5vw,52px) auto 0;
+  max-width:1040px;grid-template-columns:repeat(3,1fr);}
+/* That top margin exists to separate the steps from the form card ABOVE them on
+   /apply. On /thanks the steps are the first thing in the section, so it landed
+   as leading dead space under the header instead: measured 74px of gap where
+   the section's own padding was only 22px. Zeroed only when they lead. */
+.cd-sec-inner > .cd-steps:first-child{margin-top:0;}
+.cd-step{background:var(--surface-tint);border:1px solid rgba(12,112,195,.16);
+  border-radius:14px;padding:24px 22px;}
+.cd-step-n{font-family:var(--font-display);font-weight:750;font-size:15px;
+  letter-spacing:1px;color:var(--color-blue-600);display:block;margin-bottom:10px;}
+.cd-step-t{font-family:var(--font-display);font-weight:750;text-transform:uppercase;
+  font-size:20px;line-height:1.12;margin:0 0 8px;}
+.cd-step-b{font-family:var(--font-body);font-size:14.5px;line-height:1.62;
+  color:var(--text-muted);margin:0;}
+
+/* PARITY RULE: the apply and thanks pages must stay visually identical wherever
+   they share a component. Anything changed for one is changed for both, so these
+   are deliberately UNSCOPED. Do not reintroduce a per-page class here.
+
+   Still breakpoint-scoped, though: phones keep the 15/20/14.5px base until the
+   mobile pass is done. */
+@media (min-width:768px){
+  .cd-step-n{font-size:20px;}
+  .cd-step-t{font-size:24px;}
+  /* Card body copy. Base is 14.5px, not the 15px it reads as. */
+  .cd-step-b{font-size:16px;}
+}
+
+/* ---- buttons, lifted from the mentorship page's .mv-cta ---- */
+.cd-cta{font-family:var(--font-display);font-weight:750;text-transform:uppercase;
+  letter-spacing:.5px;cursor:pointer;display:inline-flex;align-items:center;
+  justify-content:center;gap:12px;border:none;text-decoration:none;
+  transition:transform .15s,filter .15s;}
+.cd-cta:hover{filter:brightness(1.08);transform:translateY(-2px);}
+.cd-cta:active{transform:translateY(0) scale(.98);}
+.cd-cta-solid{background:var(--color-blue-600);color:#fff;
+  font-size:clamp(18px,3vw,22px);padding:19px clamp(28px,4.4vw,44px);
+  border-radius:13px;box-shadow:0 20px 50px rgba(12,112,195,.45);}
+.cd-cta-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55);
+  font-size:16px;padding:14px 30px;border-radius:11px;}
+.cd-cta-ghost:hover{background:#fff;color:#000;filter:none;}
+.cd-fineprint{font-family:var(--font-body);font-size:14px;
+  color:var(--text-muted);margin-top:16px;}
+
+/* ---- confirmation mark ---- */
+.cd-tick{width:96px;height:96px;border-radius:50%;margin:0 auto 26px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.42);}
+.cd-tick svg{width:46px;height:46px;}
+
+@media (max-width:900px){
+  .cd-steps{grid-template-columns:1fr;}
+}
+@media (max-width:767px){
+  /* The mentorship hero is 914px tall on phones, not 1196. */
+  .cd-band{--cd-hero-h:914px;}
+  .cd-bar{height:78px;}
+  .cd-logo{height:28px;}
+  .cd-bar-tag{display:none;}
+  .cd-band{padding:26px 20px;}
+  .cd-sec{padding:26px 20px;}
+  .cd-formcard{padding:14px;border-radius:14px;}
+  /* No min-height here either -- same reason as the desktop rule: form_embed.js
+     owns the height once it boots, and a floor only strands blank card below a
+     short step. */
+  .cd-foot-inner{flex-direction:column;text-align:center;gap:12px;}
+}
