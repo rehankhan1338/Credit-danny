@@ -195,7 +195,10 @@ function normNode(node, sourceFile, isOriginal) {
           c.children.length === 0 &&
           Object.keys(c.attrs).length === 1 &&
           c.attrs.hidden === ""
-        )
+        ) &&
+        // TrustindexWidget host: layout-neutral stand-in for the original
+        // position-anchored loader <script> (which the diff also excludes)
+        !(c.tag === "div" && c.attrs["data-ti-anchor"] !== undefined)
     );
   // merge adjacent text nodes
   const merged = [];

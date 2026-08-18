@@ -7,6 +7,7 @@ import SharedNavCdmNav from "@/components/shared/SharedNavCdmNav";
 import SharedHeaderTop2 from "@/components/shared/SharedHeaderTop2";
 import SharedFooterCdPad from "@/components/shared/SharedFooterCdPad";
 import OttoSeo from "@/components/OttoSeo";
+import HtmlClass from "@/components/HtmlClass";
 
 export const metadata: Metadata = {
   "title": "The 90 Day Home Buying Blueprint | Credit Danny",
@@ -70,6 +71,7 @@ export default function HomeBuyingBlueprintPage() {
   return (
     <>
       <BodyClass className="wp-singular page-template page-template-page-home-blueprint page-template-page-home-blueprint-php page page-id-27270422 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor cd-home-blueprint eio-default hello-elementor-default elementor-default elementor-kit-27255861" />
+      <HtmlClass className="hb-js" />
       <meta property="og:updated_time" content="2026-08-12T18:03:06-07:00" />
       <meta name="twitter:label1" content="Time to read" />
       <meta name="twitter:data1" content="Less than a minute" />
@@ -1040,7 +1042,6 @@ export default function HomeBuyingBlueprintPage() {
         </div>
       </section>
       <SharedFooterCdPad />
-      <Script id="cd-inline-d80f470c" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "(function(){var d=document.documentElement;d.className+=' hb-js';if(!('IntersectionObserver'in window)){d.className=d.className.replace(' hb-js','');return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('hb-in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:0.05});addEventListener('DOMContentLoaded',function(){[].forEach.call(document.querySelectorAll('.hb-reveal'),function(n){io.observe(n);});});})();\n(function(){var s=document.querySelector('.hb-sticky');if(!s)return;var hero=document.getElementById('hb-top'),end=document.getElementById('apply');if(!('IntersectionObserver'in window)||!hero||!end){s.classList.add('hb-on');return;}var heroOn=true,endOn=false;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.target===hero)heroOn=e.isIntersecting;else endOn=e.isIntersecting;});s.classList.toggle('hb-on',!heroOn&&!endOn);},{threshold:0.01});io.observe(hero);io.observe(end);})();" }} />
       <div className="cd-modal" data-modal="lead-form" role="dialog" aria-modal="true" aria-label="Credit Danny Lead Form" hidden>
         <div className="cd-modal__panel">
           {" "}

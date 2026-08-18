@@ -1,5 +1,6 @@
 import AnalyticsScripts from "@/components/AnalyticsScripts";
 import BehaviorsGate from "@/components/behaviors/BehaviorsGate";
+import JsDetect from "@/components/JsDetect";
 import "@/public/assets/css/google-fonts.css";
 import "@/public/assets/css/style.css";
 
@@ -23,6 +24,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US" prefix="og: https://ogp.me/ns#" suppressHydrationWarning>
       <body className={SHARED_BODY_CLASS} suppressHydrationWarning>
+        <JsDetect />
         <AnalyticsScripts />
         {children}
         <BehaviorsGate />

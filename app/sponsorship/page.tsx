@@ -7,6 +7,8 @@ import SharedNavCdmNav from "@/components/shared/SharedNavCdmNav";
 import SharedFooterCdPad from "@/components/shared/SharedFooterCdPad";
 import SponsorshipEffects from "@/components/effects/SponsorshipEffects";
 import OttoSeo from "@/components/OttoSeo";
+import TrustindexWidget from "@/components/TrustindexWidget";
+import HtmlClass from "@/components/HtmlClass";
 
 export const metadata: Metadata = {
   "title": "The Credit Danny Sponsorship Program | Free Credit Repair",
@@ -69,6 +71,7 @@ export default function SponsorshipPage() {
   return (
     <>
       <BodyClass className="wp-singular page-template page-template-page-sponsorship page-template-page-sponsorship-php page page-id-27270417 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor cd-sponsorship eio-default hello-elementor-default elementor-default elementor-kit-27255861" />
+      <HtmlClass className="sp-js" />
       <meta name="twitter:label1" content="Time to read" />
       <meta name="twitter:data1" content="Less than a minute" />
       <meta name="ti-site-data" content="eyJyIjoiMTowITc6MCEzMDowIiwibyI6Imh0dHBzOlwvXC9jcmVkaXRkYW5ueS5jb20/dGktb25saW5lLXVzZXJzLWdvb2dsZT0xJmFtcDtwPSUyRnNwb25zb3JzaGlwJTJGJmFtcDtfd3Bub25jZT1iZjgyNTEzOTRiIn0=" />
@@ -83,7 +86,7 @@ export default function SponsorshipPage() {
       <Script src="https://fast.wistia.com/embed/sm8l88eucr.js" type="module" strategy="afterInteractive" />
       <Script src="https://fast.wistia.com/embed/6oep76ji10.js" type="module" strategy="afterInteractive" />
       <Script src="https://fast.wistia.com/embed/lb00wopw0y.js" type="module" strategy="afterInteractive" />
-      <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('sp-js');" }} />
+
       <div id="menu" style={{ "position": "fixed", "inset": "0", "zIndex": "200", "background": "linear-gradient(180deg,#000 0%,#06243f 45%,#0b3a63 100%)", "display": "flex", "flexDirection": "column", "alignItems": "center", "justifyContent": "flex-start", "padding": "38px 40px 46px", "overflowY": "auto", "animation": "cd-menu-iris .62s cubic-bezier(.76,0,.24,1) both" }} data-menu-panel="">
         <button type="button" aria-label="Close menu" style={{ "position": "absolute", "top": "32px", "right": "40px", "width": "52px", "height": "52px", "borderRadius": "10px", "background": "transparent", "border": "2px solid #0C70C3", "color": "#fff", "display": "flex", "alignItems": "center", "justifyContent": "center", "cursor": "pointer", "padding": "0", "transition": "background .2s ease,border-color .2s ease", "animation": "cd-menu-close .5s cubic-bezier(.34,1.56,.64,1) .34s both" }} className="cdm-h0">
           {" "}
@@ -759,7 +762,7 @@ export default function SponsorshipPage() {
                   {"What Clients Are Saying"}
                 </h2>
               </div>
-              <Script src="https://cdn.trustindex.io/loader.js?28cdc397833c7456b6762a5982e" strategy="afterInteractive" />
+              <TrustindexWidget src="https://cdn.trustindex.io/loader.js?28cdc397833c7456b6762a5982e" />
             </div>
           </div>
         </section>

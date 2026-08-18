@@ -16,12 +16,13 @@ const CHROME =
   process.env.CHROME || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const PORT = 9226;
 
-// [link href to click, expected title fragment, expected body class fragment]
+// [link href, title fragment, body class fragment, html class expected, html classes that must be GONE]
 const HOPS = [
-  ["/about/", "About Credit Danny", "cd-about"],
-  ["/plans/", "Our Plans", "cd-plans"],
-  ["/team/", "Meet the Team", "cd-team"],
-  ["/", "Credit Restoration Experts", "cd-home"],
+  ["/about/", "About Credit Danny", "cd-about", null, []],
+  ["/blueprint/", "Blueprint", "cd-blueprint", "bp-js", []],
+  ["/plans/", "Our Plans", "cd-plans", "pl-js", ["bp-js"]],
+  ["/team/", "Meet the Team", "cd-team", null, ["pl-js"]],
+  ["/", "Credit Restoration Experts", "cd-home", null, []],
 ];
 
 const chrome = spawn(CHROME, [
@@ -57,10 +58,20 @@ await send("Page.navigate", { url: BASE + "/" });
 await new Promise((r) => setTimeout(r, 5000)); // load + hydrate
 await evaluate("window.__navMarker = 'alive'");
 
+/* the reviews-at-top regression: no Trustindex widget may render outside its
+   in-page anchor, and nothing widget-like may precede the page content */
+async function checkNoTopWidget() {
+  return evaluate(`(() => {
+    const stray = document.querySelector("body > [class*='ti-'], body > [id*='trustindex']");
+    return stray ? stray.outerHTML.slice(0, 120) : null;
+  })()`);
+}
+
 let failures = 0;
-for (const [href, titleFrag, bodyFrag] of HOPS) {
+for (const [href, titleFrag, bodyFrag, htmlClass, goneClasses] of HOPS) {
   const clicked = await evaluate(`(() => {
-    const a = Array.from(document.querySelectorAll('a[href="${href}"]')).find(x => x.offsetParent !== null || true);
+    const links = Array.from(document.querySelectorAll('a[href="${href}"]'));
+    const a = links.find((x) => !x.closest("[data-menu-panel]")) || links[0];
     if (!a) return false;
     a.click();
     return true;
@@ -71,6 +82,7 @@ for (const [href, titleFrag, bodyFrag] of HOPS) {
     path: location.pathname,
     title: document.title,
     bodyClass: document.body.className,
+    htmlClass: document.documentElement.className,
   })`);
   const problems = [];
   if (!clicked) problems.push("link not found on page");
@@ -79,6 +91,12 @@ for (const [href, titleFrag, bodyFrag] of HOPS) {
     if (state.path !== href) problems.push(`landed on ${state.path}`);
     if (!state.title.includes(titleFrag)) problems.push(`title: ${JSON.stringify(state.title)}`);
     if (!state.bodyClass.includes(bodyFrag)) problems.push(`body class not applied: ${state.bodyClass.slice(0, 60)}`);
+    if (htmlClass && !state.htmlClass.includes(htmlClass))
+      problems.push(`html class ${htmlClass} missing (got: ${state.htmlClass || "(none)"})`);
+    for (const gone of goneClasses)
+      if (state.htmlClass.includes(gone)) problems.push(`stale html class leaked: ${gone}`);
+    const stray = await checkNoTopWidget();
+    if (stray) problems.push(`Trustindex widget outside its anchor: ${stray}`);
   }
   if (problems.length) { failures++; console.log(`✗ click → ${href}: ${problems.join("; ")}`); }
   else console.log(`✓ click → ${href} — client-side, no reload, title + body class updated`);

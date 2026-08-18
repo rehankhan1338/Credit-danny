@@ -9,6 +9,7 @@ import SharedFooterCdPad from "@/components/shared/SharedFooterCdPad";
 import SharedNavElementorNavMenuMain from "@/components/shared/SharedNavElementorNavMenuMain";
 import SharedNavElementorNavMenuDropdown from "@/components/shared/SharedNavElementorNavMenuDropdown";
 import OttoSeo from "@/components/OttoSeo";
+import TrustindexWidget from "@/components/TrustindexWidget";
 
 export const metadata: Metadata = {
   "title": "Get Started With Credit Accelerator | Credit Danny",
@@ -130,7 +131,7 @@ export default function AcceleratorApplicationPage() {
               </h1>
             </div>
             <div style={{ "width": "100%", "display": "flex", "flexDirection": "column", "gap": "10px", "marginTop": "4px" }} className="fm-reviews">
-              <Script src="https://cdn.trustindex.io/loader.js?7a5a1f8734e8341aa8969f7494e" strategy="afterInteractive" />
+              <TrustindexWidget src="https://cdn.trustindex.io/loader.js?7a5a1f8734e8341aa8969f7494e" />
             </div>
           </div>
           <div style={{ "minWidth": "0px", "background": "var(--surface-card)", "borderRadius": "var(--radius-lg)", "boxShadow": "var(--shadow-card)", "padding": "20px" }} className="fm-formcol">

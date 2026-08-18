@@ -8,6 +8,7 @@ import SharedFooterCdPad from "@/components/shared/SharedFooterCdPad";
 import HomeEffects from "@/components/effects/HomeEffects";
 import LottiePlayers from "@/components/behaviors/LottiePlayers";
 import OttoSeo from "@/components/OttoSeo";
+import TrustindexWidget from "@/components/TrustindexWidget";
 
 export const metadata: Metadata = {
   "title": "Trusted & Proven Credit Restoration Experts | Credit Danny",
@@ -1114,7 +1115,7 @@ export default function HomePage() {
               </span>
               {" "}
             </div>
-            <Script src="https://cdn.trustindex.io/loader.js?08ef8816382532577666329ed3b" strategy="afterInteractive" />
+            <TrustindexWidget src="https://cdn.trustindex.io/loader.js?08ef8816382532577666329ed3b" />
           </div>
         </section>
         <section id="plans" data-screen-label="Three ways" style={{ "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "padding": "110px 40px" }} className="cd-pad">

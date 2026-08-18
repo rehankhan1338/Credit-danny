@@ -8,6 +8,8 @@ import SharedHeaderTop2 from "@/components/shared/SharedHeaderTop2";
 import SharedFooterCdPad from "@/components/shared/SharedFooterCdPad";
 import BlueprintEffects from "@/components/effects/BlueprintEffects";
 import OttoSeo from "@/components/OttoSeo";
+import TrustindexWidget from "@/components/TrustindexWidget";
+import HtmlClass from "@/components/HtmlClass";
 
 export const metadata: Metadata = {
   "title": "The Credit Blueprint | VIP Credit Repair by Credit Danny",
@@ -70,6 +72,7 @@ export default function BlueprintPage() {
   return (
     <>
       <BodyClass className="wp-singular page-template page-template-page-blueprint page-template-page-blueprint-php page page-id-27270410 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor cd-blueprint eio-default hello-elementor-default elementor-default elementor-kit-27255861" />
+      <HtmlClass className="bp-js" />
       <meta name="twitter:label1" content="Time to read" />
       <meta name="twitter:data1" content="Less than a minute" />
       <meta name="ti-site-data" content="eyJyIjoiMTowITc6MCEzMDowIiwibyI6Imh0dHBzOlwvXC9jcmVkaXRkYW5ueS5jb20/dGktb25saW5lLXVzZXJzLWdvb2dsZT0xJmFtcDtwPSUyRmJsdWVwcmludCUyRiZhbXA7X3dwbm9uY2U9YmY4MjUxMzk0YiJ9" />
@@ -83,7 +86,7 @@ export default function BlueprintPage() {
       <Script src="https://fast.wistia.com/embed/03m7xewg2a.js" type="module" strategy="afterInteractive" />
       <Script src="https://fast.wistia.com/embed/9831m0fzv3.js" type="module" strategy="afterInteractive" />
       <Script src="https://fast.wistia.com/embed/1pnk3w6xad.js" type="module" strategy="afterInteractive" />
-      <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('bp-js');" }} />
+
       <div id="menu" style={{ "position": "fixed", "inset": "0", "zIndex": "200", "background": "linear-gradient(180deg,#000 0%,#06243f 45%,#0b3a63 100%)", "display": "flex", "flexDirection": "column", "alignItems": "center", "justifyContent": "flex-start", "padding": "38px 40px 46px", "overflowY": "auto", "animation": "cd-menu-iris .62s cubic-bezier(.76,0,.24,1) both" }} data-menu-panel="">
         <button type="button" aria-label="Close menu" style={{ "position": "absolute", "top": "32px", "right": "40px", "width": "52px", "height": "52px", "borderRadius": "10px", "background": "transparent", "border": "2px solid #0C70C3", "color": "#fff", "display": "flex", "alignItems": "center", "justifyContent": "center", "cursor": "pointer", "padding": "0", "transition": "background .2s ease,border-color .2s ease", "animation": "cd-menu-close .5s cubic-bezier(.34,1.56,.64,1) .34s both" }} className="cdm-h0">
           {" "}
@@ -1001,7 +1004,7 @@ export default function BlueprintPage() {
                   {"What Clients Are Saying"}
                 </h2>
               </div>
-              <Script src="https://cdn.trustindex.io/loader.js?28cdc397833c7456b6762a5982e" strategy="afterInteractive" />
+              <TrustindexWidget src="https://cdn.trustindex.io/loader.js?28cdc397833c7456b6762a5982e" />
               {" "}
               <Link href="/transformations/" className="scp0" style={{ "fontFamily": "var(--font-display)", "fontWeight": "750", "fontSize": "21px", "letterSpacing": "0.05em", "textTransform": "uppercase", "color": "rgb(255, 255, 255)", "background": "rgb(11, 113, 195)", "borderWidth": "medium", "borderStyle": "none", "borderColor": "currentcolor", "borderImage": "none", "padding": "18px 34px", "borderRadius": "16px", "display": "inline-flex", "boxShadow": "rgba(11, 113, 195, 0.55) 0px 8px 28px, rgba(11, 113, 195, 0.45) 0px 2px 10px", "transition": "background 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
                 {"See Our Credit Transformations"}
