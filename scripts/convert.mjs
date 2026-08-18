@@ -721,6 +721,7 @@ for (const { page, meta, bodyClass, bodyEl } of pageData) {
   );
 
   const importLines = [`import type { Metadata } from "next";`];
+  importLines.push(`import BodyClass from "@/components/BodyClass";`);
   if (ctx.usesLink) importLines.push(`import Link from "next/link";`);
   if (ctx.usesNextScript) importLines.push(`import Script from "next/script";`);
   if (meta.pageCss) importLines.push(`import "@/public/assets/css/pages/${meta.pageCss}.css";`);
@@ -739,6 +740,7 @@ for (const { page, meta, bodyClass, bodyEl } of pageData) {
     : "";
 
   const body = [
+    `      <BodyClass className=${JSON.stringify(bodyClass)} />`,
     ...(meta.usesLegacyElementor
       ? [`      <link rel="stylesheet" href="/assets/css/legacy-elementor.css" />`]
       : []),
@@ -763,21 +765,23 @@ ${body}
   );
 }
 `;
-  const routeDir =
-    page.route === "/" ? `app/(${page.group})` : `app/(${page.group})${page.route.slice(0, -1)}`;
+  /* Flat routes under a single root layout: separate root layouts would force
+     a full page load on every navigation; the per-page body class is handled
+     by <BodyClass> instead. */
+  const routeDir = page.route === "/" ? "app" : `app${page.route.slice(0, -1)}`;
   write(`${routeDir}/page.tsx`, src);
   groupBodyClass[page.group] = bodyClass;
+}
 
-  write(
-    `app/(${page.group})/layout.tsx`,
-    `import Shell from "@/components/Shell";
+write(
+  "app/layout.tsx",
+  `import Shell from "@/components/Shell";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <Shell bodyClassName=${JSON.stringify(bodyClass)}>{children}</Shell>;
+  return <Shell>{children}</Shell>;
 }
 `
-  );
-}
+);
 
 function replaceSharedDeep(node, sourceFile, ctx, usedShared, depth) {
   if (isElement(node) && node.__hash && sharedByHash.has(node.__hash)) {

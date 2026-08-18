@@ -75,7 +75,13 @@ let failures = 0;
 for (const route of ROUTES) {
   try {
     const msgs = await cdp(route);
-    const own = msgs.filter((m) => !THIRD_PARTY.test((m.text || "") + (m.url || "")));
+    const own = msgs.filter(
+      (m) =>
+        !THIRD_PARTY.test((m.text || "") + (m.url || "")) &&
+        // benign Chrome advisory triggered by Next's route prefetching:
+        // resources are preloaded for the NEXT navigation, not this paint
+        !/was preloaded using link preload but not used/i.test(m.text || "")
+    );
     const hydration = msgs.filter((m) => /hydrat|minified react error #(418|423|425)/i.test(m.text || ""));
     if (own.length || hydration.length) {
       failures++;

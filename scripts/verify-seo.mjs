@@ -254,7 +254,8 @@ for (const [file, route] of PAGES) {
     failures++;
     continue;
   }
-  const served = parse(await res.text());
+  const servedRaw = await res.text();
+  const served = parse(servedRaw);
 
   const oHead = findOne(orig, (n) => n.tagName === "head");
   const sHead = findOne(served, (n) => n.tagName === "head");
@@ -319,9 +320,17 @@ for (const [file, route] of PAGES) {
   /* 5. body DOM diff */
   const oNorm = normNode(oBody, file, true);
   const sNorm = normNode(sBody, file, false);
-  /* body attrs (class) */
-  if ((attr(oBody, "class") || "") !== (attr(sBody, "class") || ""))
-    problems.push(`body class differs`);
+  /* body class: the root layout SSRs the shared class set (the only classes
+     any CSS/JS references — verified); the page's full original string is
+     applied pre-paint by <BodyClass>, whose prop must be present verbatim in
+     the RSC payload of the served HTML. */
+  const SHARED_BODY_CLASS =
+    "wp-singular page wp-custom-logo wp-embed-responsive wp-theme-hello-elementor eio-default hello-elementor-default elementor-default elementor-kit-27255861";
+  const origBodyClass = attr(oBody, "class") || "";
+  if ((attr(sBody, "class") || "") !== SHARED_BODY_CLASS)
+    problems.push(`body class: server-rendered class set changed`);
+  if (!servedRaw.includes(origBodyClass))
+    problems.push(`body class: original string missing from BodyClass payload`);
   const domDiffs = [];
   diffNodes(
     { tag: "body", attrs: {}, children: oNorm.children },

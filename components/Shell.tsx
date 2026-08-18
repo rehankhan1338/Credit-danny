@@ -1,32 +1,31 @@
 import AnalyticsScripts from "@/components/AnalyticsScripts";
-import Behaviors from "@/components/behaviors/Behaviors";
+import BehaviorsGate from "@/components/behaviors/BehaviorsGate";
 import "@/public/assets/css/google-fonts.css";
 import "@/public/assets/css/style.css";
 
 /**
- * Shared document shell. Each route group's root layout renders this with
- * that page's original WordPress <body> class string (CSS targets
- * .elementor-kit-27255861 on body, so it must be server-rendered).
+ * The single document shell (one root layout — required for client-side
+ * navigation; separate root layouts force a full page load on every link).
  *
- * <html> attributes are identical across all 19 source pages.
- * charset + viewport metas are emitted by Next and match the originals.
+ * <body> server-renders the class set shared by all 19 pages, which is
+ * exactly the set the stylesheets target (verified — the page-specific
+ * page-id-N / page-template-* / cd-* classes are referenced by no CSS/JS).
+ * Each page's <BodyClass> then restores its full original string pre-paint.
+ *
+ * suppressHydrationWarning ×2: several pages run a pre-paint one-liner that
+ * adds a JS-detection class to <html>, and BodyClass rewrites the body class
+ * — both are deliberate pre-hydration mutations React must not diff away.
  */
-export default function Shell({
-  bodyClassName,
-  children,
-}: {
-  bodyClassName: string;
-  children: React.ReactNode;
-}) {
-  /* suppressHydrationWarning: several pages ship a tiny pre-paint script that
-     adds a JS-detection class (ca-js/pl-js/…) to <html> before hydration —
-     legitimate, and the class must survive; React must not diff it away. */
+const SHARED_BODY_CLASS =
+  "wp-singular page wp-custom-logo wp-embed-responsive wp-theme-hello-elementor eio-default hello-elementor-default elementor-default elementor-kit-27255861";
+
+export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US" prefix="og: https://ogp.me/ns#" suppressHydrationWarning>
-      <body className={bodyClassName}>
+      <body className={SHARED_BODY_CLASS} suppressHydrationWarning>
         <AnalyticsScripts />
         {children}
-        <Behaviors />
+        <BehaviorsGate />
       </body>
     </html>
   );
