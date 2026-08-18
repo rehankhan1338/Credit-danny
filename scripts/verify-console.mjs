@@ -20,6 +20,7 @@ const ROUTES = [
   "/get-started/", "/home-buying-blueprint/", "/mentorship/", "/mentorship-apply/",
   "/plans/", "/privacy-policy/", "/sponsorship/", "/sponsorship-apply/",
   "/team/", "/terms-and-conditions/", "/transformations/",
+  "/category/credit-insights/",
 ];
 
 /* Third-party noise we don't own (ad blockers off, but remote scripts may

@@ -58,6 +58,7 @@ const OWNED_ROUTES = new Set([
   "/team/",
   "/terms-and-conditions/",
   "/transformations/",
+  "/category/credit-insights/",
 ]);
 
 function finalUrlFor(pathname: string): string | null {
