@@ -43,10 +43,16 @@ case-insensitivity shim.
 
 ## Layout of the code
 
-- `app/(<page>)/…/page.tsx` — one route group per page. Each group's
-  `layout.tsx` renders `components/Shell.tsx` with that page's original WP
-  `<body>` class string (CSS targets `.elementor-kit-27255861` on body, so it
-  must be server-rendered; route groups are the SSG-safe way to vary it).
+- `app/<page>/page.tsx` — flat routes under a **single root layout**
+  (`app/layout.tsx` → `components/Shell.tsx`), which is what makes link
+  clicks client-side navigations instead of full reloads. `<body>`
+  server-renders the class set shared by all 19 pages — audited to be the
+  only classes any CSS/JS references (incl. `.elementor-kit-27255861`) —
+  and each page's `components/BodyClass.tsx` restores its exact original
+  class string before paint. `components/behaviors/BehaviorsGate.tsx`
+  remounts the behavior suite per pathname (the modules scan the DOM on
+  mount) and fires the Meta Pixel PageView on route changes (GA4 enhanced
+  measurement and Clicky track history changes themselves).
 - `components/shared/` — header/footer/nav blocks extracted where byte-identical
   across 2+ pages (7 components, auto-extracted by hash).
 - `components/behaviors/` — the React port of `assets/js/main.js` (SmartBar,
@@ -96,4 +102,5 @@ npm run convert      # regenerate pages from the root *.html sources
 node scripts/verify-seo.mjs        # 19/19 SEO parity vs original HTML
 node scripts/verify-redirects.mjs  # every legacy URL: one permanent hop
 node scripts/verify-console.mjs    # headless-Chrome console/hydration sweep
+node scripts/verify-spa-nav.mjs    # proves link clicks navigate without reload
 ```
