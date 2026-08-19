@@ -86,6 +86,18 @@ function finalUrlFor(pathname: string): string | null {
   return null; // not ours — leave untouched for the WordPress fallback proxy
 }
 
+/*
+ * Single-segment URLs that must stay with WordPress. app/[slug] (the blog
+ * post route) matches ANY unhandled single segment BEFORE the fallback
+ * rewrites can run, so these are rewritten to WP here in the proxy, which
+ * runs before route matching. Multi-segment WP paths (/category/mortgage-*,
+ * /author/*, …) never match [slug] and keep using the fallback rewrites.
+ */
+const WP_ORIGIN = process.env.WP_ORIGIN ?? "https://creditdanny.com";
+const WP_KEEP = new Set(["/blog/", "/feed/", "/comments/"]);
+/** dotted root paths Next itself serves — everything else dotted goes to WP */
+const OWNED_FILES = new Set(["/robots.txt", "/page-sitemap.xml"]);
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -96,7 +108,18 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/wp-") ||
     (/\.[a-zA-Z0-9]+\/?$/.test(pathname) && !/\.html\/?$/i.test(pathname))
   ) {
+    const single = /^\/[^/]+\/?$/.test(pathname);
+    if (single && /\./.test(pathname) && !OWNED_FILES.has(pathname) && !pathname.startsWith("/_next/")) {
+      // root-level file (sitemap_index.xml, post-sitemap.xml, favicon.ico, …)
+      // — WordPress serves these; [slug] must not swallow them into a 404
+      return NextResponse.rewrite(new URL(pathname + request.nextUrl.search, WP_ORIGIN));
+    }
     return NextResponse.next();
+  }
+
+  const withTrailingSlash = pathname.endsWith("/") ? pathname : `${pathname}/`;
+  if (WP_KEEP.has(withTrailingSlash.toLowerCase())) {
+    return NextResponse.rewrite(new URL(pathname + request.nextUrl.search, WP_ORIGIN));
   }
 
   const hasUpper = /[A-Z]/.test(pathname);

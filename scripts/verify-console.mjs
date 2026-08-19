@@ -21,6 +21,7 @@ const ROUTES = [
   "/plans/", "/privacy-policy/", "/sponsorship/", "/sponsorship-apply/",
   "/team/", "/terms-and-conditions/", "/transformations/",
   "/category/credit-insights/",
+  "/hard-inquiry-removal-when-its-possible/",
 ];
 
 /* Third-party noise we don't own (ad blockers off, but remote scripts may

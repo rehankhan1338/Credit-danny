@@ -20,12 +20,21 @@ JSON-LD now use the URL that actually resolves: **`/mentorship-apply/`**.
 Two source pages deviate from the one-H1 ideal and are preserved as-is:
 `home-buying-blueprint` has 2 h1s, `mentorship` has 0.
 
-## The blog stays on WordPress (proxied)
+## The blog: hybrid — Next serves it, WordPress feeds it
 
-62 live URLs (blog, 55+ posts, category/author archives) have no source in
-this repo. A fallback rewrite proxies **everything this app doesn't own** to
-`WP_ORIGIN` — blog, Rank Math sitemaps, `/wp-content/uploads/*`, feeds — so
-cutover breaks nothing and new WP posts keep working.
+Post detail pages (/{slug}/) and /category/credit-insights/ are served BY
+NEXT with WordPress as the data source:
+- posts: each WP-rendered page is fetched hourly (ISR) and its head SEO
+  (Rank Math titles/descriptions/JSON-LD — not available via REST) plus the
+  #cdb article region are re-served verbatim inside the Next shell
+  (app/[slug]/page.tsx + lib/wp-post.ts). New posts render on first visit,
+  no redeploy. Edits in wp-admin appear within the hour.
+- the Credit Insights archive builds its listing from the WP REST API
+  (lib/wp.ts), same cadence.
+Still WordPress via proxy: /blog/, the other two category archives,
+/author/*, feeds, Rank Math sitemaps, /wp-content/uploads/*. proxy.ts
+rewrites the single-segment WP paths (/blog/, /feed/, root sitemap XMLs)
+before routing so the [slug] post route cannot shadow them.
 
 > ### ⚠️ Before pointing DNS at this deployment
 > Set the env var `WP_ORIGIN` to a hostname that still reaches WordPress
