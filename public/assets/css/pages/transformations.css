@@ -838,11 +838,11 @@ body{overflow-x:clip!important;}
     gap:16px!important;}
 
   /* The display sizes are fixed pixels, kept in proportion to one another. */
-  [style*="font-size: 80px"]{font-size:clamp(36px,10vw,80px)!important;}
-  [style*="font-size: 70px"]{font-size:clamp(32px,9vw,70px)!important;}
-  [style*="font-size: 66px"]{font-size:clamp(30px,8.4vw,66px)!important;}
-  [style*="font-size: 65px"]{font-size:clamp(30px,8.2vw,65px)!important;}
-  [style*="font-size: 64px"]{font-size:clamp(29px,8vw,64px)!important;}
+  [style*="font-size: 80px"],[style*="font-size:80px"]{font-size:clamp(36px,10vw,80px)!important;}
+  [style*="font-size: 70px"],[style*="font-size:70px"]{font-size:clamp(32px,9vw,70px)!important;}
+  [style*="font-size: 66px"],[style*="font-size:66px"]{font-size:clamp(30px,8.4vw,66px)!important;}
+  [style*="font-size: 65px"],[style*="font-size:65px"]{font-size:clamp(30px,8.2vw,65px)!important;}
+  [style*="font-size: 64px"],[style*="font-size:64px"]{font-size:clamp(29px,8vw,64px)!important;}
 
   /* Nothing pinned to one line, and nothing wider than its column. */
   .ct-nowrap{white-space:normal!important;}
@@ -903,7 +903,7 @@ body{overflow-x:clip!important;}
 .ct-ctabreak{display:none;}
 
 /* house rule: never underline a button on hover */
-a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display: inline-flex"]:hover,a[style*="display: flex"]:hover{text-decoration:none!important;}
+a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display: inline-flex"]:hover,a[style*="display: flex"]:hover,a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display:inline-flex"]:hover,a[style*="display:flex"]:hover{text-decoration:none!important;}
 
 
 

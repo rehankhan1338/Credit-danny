@@ -19,6 +19,10 @@ export default function SharedHeaderTop2() {
             {"Credit Blueprint"}
           </Link>
           {" "}
+          <Link href="/accelerator/" className="cd-hov-nav cd-navlink" style={{ "color": "inherit", "fontSize": "14px", "transition": "color 0.18s", "cursor": "pointer" }}>
+            {"Credit Accelerator"}
+          </Link>
+          {" "}
           <Link href="/sponsorship/" className="cd-hov-nav cd-navlink" style={{ "color": "inherit", "fontSize": "14px", "transition": "color 0.18s", "cursor": "pointer" }}>
             {"Free Credit Repair"}
           </Link>

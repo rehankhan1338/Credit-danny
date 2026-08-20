@@ -16,11 +16,17 @@ export default function TransformationsEffects() {
     const SEL = 'h1,h2,h3,p,img,image-slot,a,li,div[style*="border-radius"]';
     let marked: RevealEl[] = [];
     if (!reduce && "IntersectionObserver" in window) {
+      const vh = window.innerHeight;
       document.querySelectorAll("section").forEach((sec) => {
         const picked: RevealEl[] = [];
         sec.querySelectorAll<RevealEl>(SEL).forEach((el) => {
           if (el.closest("[data-reveal]")) return;
-          if (el.getBoundingClientRect().height === 0) return;
+          const rect = el.getBoundingClientRect();
+          if (rect.height === 0) return;
+          /* Never hide what the reader is already looking at: this runs
+             after hydration — long after first paint — so hiding on-screen
+             content makes the page visibly blink out. */
+          if (rect.top < vh && rect.bottom > 0) return;
           el.setAttribute("data-reveal", "");
           picked.push(el);
         });
@@ -44,19 +50,26 @@ export default function TransformationsEffects() {
       });
     }
     const pending = new Set(marked);
+    /* Undo everything the cascade set, back to the server-rendered state. */
+    const restore = (el: RevealEl) => {
+      el.style.opacity = "";
+      el.style.transform = "";
+      el.style.transition = "";
+      el.style.willChange = "";
+      el.removeAttribute("data-reveal");
+    };
+    const timers = new Set<number>();
     const show = (el: RevealEl) => {
       if (!pending.has(el)) return;
       pending.delete(el);
       el.style.opacity = "1";
       el.style.transform = "none";
       io.unobserve(el);
-      setTimeout(() => {
-        el.style.opacity = "";
-        el.style.transform = "";
-        el.style.transition = "";
-        el.style.willChange = "";
-        el.removeAttribute("data-reveal");
+      const t = window.setTimeout(() => {
+        timers.delete(t);
+        restore(el);
       }, 1600);
+      timers.add(t);
     };
     let io: Pick<IntersectionObserver, "unobserve" | "observe" | "disconnect"> = {
       unobserve() {},
@@ -106,6 +119,12 @@ export default function TransformationsEffects() {
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("resize", onScroll);
         window.clearInterval(t);
+        timers.forEach((timer) => window.clearTimeout(timer));
+        /* Un-hide everything on unmount. Without this, a remount (dev
+           StrictMode runs setup → cleanup → setup) sees the data-reveal
+           markers from the first pass, skips every element, and the
+           still-hidden content is never observed — the page goes blank. */
+        marked.forEach(restore);
       });
     }
     return () => cleanups.forEach((fn) => fn());

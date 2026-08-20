@@ -908,11 +908,11 @@ a:hover{color:var(--color-blue-400)}
 
   /* Eleven labels sit at 11px, under the floor for readable text. They are
      heavy, letter-spaced eyebrows rather than body copy, so 12px is enough. */
-  [style*="font-size: 11px"]{font-size:12px!important;}
+  [style*="font-size: 11px"],[style*="font-size:11px"]{font-size:12px!important;}
 
   /* The two fixed display sizes, kept in proportion to each other. */
-  [style*="font-size: 96px"]{font-size:clamp(40px,11vw,96px)!important;}
-  [style*="font-size: 62px"]{font-size:clamp(30px,7.6vw,62px)!important;}
+  [style*="font-size: 96px"],[style*="font-size:96px"]{font-size:clamp(40px,11vw,96px)!important;}
+  [style*="font-size: 62px"],[style*="font-size:62px"]{font-size:clamp(30px,7.6vw,62px)!important;}
 
   /* Long unbroken words, and the email address in particular, must never set
      the page's minimum width. `anywhere`, not `break-word`: only `anywhere`
@@ -986,7 +986,7 @@ a:hover{color:var(--color-blue-400)}
 
 
 /* house rule: never underline a button on hover */
-a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display: inline-flex"]:hover,a[style*="display: flex"]:hover{text-decoration:none!important;}
+a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display: inline-flex"]:hover,a[style*="display: flex"]:hover,a[style*="border-radius"]:hover,a[style*="background"]:hover,a[style*="display:inline-flex"]:hover,a[style*="display:flex"]:hover{text-decoration:none!important;}
 
 
 

@@ -17,7 +17,8 @@
  */
 import { parse, serializeOuter } from "parse5";
 
-const WP_ORIGIN = process.env.WP_ORIGIN ?? "https://creditdanny.com";
+// `||` (not `??`) so an empty WP_ORIGIN env var also falls back
+const WP_ORIGIN = process.env.WP_ORIGIN || "https://creditdanny.com";
 export const POST_REVALIDATE_SECONDS = 3600;
 
 /* --------------------------------- types -------------------------------- */

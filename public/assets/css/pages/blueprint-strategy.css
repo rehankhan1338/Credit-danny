@@ -917,7 +917,8 @@ a:hover{color:var(--link-hover-color);text-decoration:underline}
      edges never touch the screen sides, and the number does not change
      between breakpoints. */
   #bs-page [style*="max-width:1320px"],
-  #bs-page [style*="max-width: 1320px"]{
+  #bs-page [style*="max-width: 1320px"],#bs-page [style*="max-width:1320px"],
+  #bs-page [style*="max-width:1320px"]{
     padding-left:20px !important;padding-right:20px !important;
     max-width:none !important;
   }
@@ -925,7 +926,8 @@ a:hover{color:var(--link-hover-color);text-decoration:underline}
   /* Vertical rhythm: one value, the design's own 96px halved, rather than a
      different number per band. */
   #bs-page [style*="padding:96px 48px"],
-  #bs-page [style*="padding: 96px 48px"]{
+  #bs-page [style*="padding: 96px 48px"],#bs-page [style*="padding:96px 48px"],
+  #bs-page [style*="padding:96px 48px"]{
     padding-top:48px !important;padding-bottom:48px !important;
   }
 

@@ -11,7 +11,8 @@
  * WordPress appear without a redeploy.
  */
 
-const WP_ORIGIN = process.env.WP_ORIGIN ?? "https://creditdanny.com";
+// `||` (not `??`) so an empty WP_ORIGIN env var also falls back
+const WP_ORIGIN = process.env.WP_ORIGIN || "https://creditdanny.com";
 export const WP_REVALIDATE_SECONDS = 3600;
 
 export type WpPost = {

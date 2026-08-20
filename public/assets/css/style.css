@@ -143,3 +143,20 @@ div#blur {
   vertical-align: -.125em;
   fill: currentColor;
 }
+
+/* ---- lazy section rendering ---------------------------------------------------
+   The marketing pages are very long documents. content-visibility: auto lets the
+   browser skip layout/paint for sections still far below the viewport and render
+   them as the reader scrolls near — a large first-paint win with zero markup
+   changes. The content stays in the HTML (SEO, find-in-page and anchor links are
+   unaffected). Excluded via :has(): sections owning third-party embeds
+   (Wistia/iframes) or a results carousel, whose scripts measure themselves and
+   must not see a zero-sized container. Also excluded (audited 2026-08-20): the
+   three sections whose art intentionally overflows their box — content-visibility
+   implies paint containment, which would clip that overflow. contain-intrinsic-size
+   keeps the scrollbar stable by estimating unrendered sections, remembering real
+   heights once seen. */
+section:not(#apply):not([data-screen-label="Proof band"]):not([data-screen-label="Chapter 04 Elevating others"]):not(:has(wistia-player, .wistia_embed, iframe, [data-track])) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}

@@ -93,7 +93,8 @@ function finalUrlFor(pathname: string): string | null {
  * runs before route matching. Multi-segment WP paths (/category/mortgage-*,
  * /author/*, …) never match [slug] and keep using the fallback rewrites.
  */
-const WP_ORIGIN = process.env.WP_ORIGIN ?? "https://creditdanny.com";
+// `||` (not `??`) so an empty WP_ORIGIN env var also falls back
+const WP_ORIGIN = process.env.WP_ORIGIN || "https://creditdanny.com";
 const WP_KEEP = new Set(["/blog/", "/feed/", "/comments/"]);
 /** dotted root paths Next itself serves — everything else dotted goes to WP */
 const OWNED_FILES = new Set(["/robots.txt", "/page-sitemap.xml"]);

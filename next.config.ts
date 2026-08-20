@@ -9,7 +9,8 @@ import type { NextConfig } from "next";
  * (e.g. https://origin.creditdanny.com). Leaving the default after cutover
  * would make the fallback rewrite proxy to this same deployment (a loop).
  */
-const WP_ORIGIN = process.env.WP_ORIGIN ?? "https://creditdanny.com";
+// `||` (not `??`) so an empty WP_ORIGIN env var also falls back
+const WP_ORIGIN = process.env.WP_ORIGIN || "https://creditdanny.com";
 
 const nextConfig: NextConfig = {
   /*
@@ -20,6 +21,35 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
 
   reactStrictMode: true,
+
+  /*
+   * ────────────────────────────────────────────────────────────────────────
+   * TEST-DOMAIN NOINDEX — REMOVE THIS ENTIRE headers() BLOCK AT LAUNCH.
+   *
+   * While this deployment lives on a test domain, every response (Next
+   * pages, public/ files, and WordPress-proxied fallbacks alike) carries
+   * X-Robots-Tag: noindex, nofollow so search engines never index it as a
+   * duplicate of the live creditdanny.com. The HTTP header outranks the
+   * per-page `robots: "index, follow"` meta tags (the most restrictive
+   * directive wins), so those meta tags stay byte-identical to production
+   * and verify-seo keeps passing.
+   *
+   * Deliberately NOT done via robots.txt Disallow — a crawl block would
+   * stop Google from ever seeing the noindex, letting the URLs get indexed
+   * (without content) anyway.
+   *
+   * AT LAUNCH (main domain cutover): delete this headers() block, redeploy,
+   * and indexing resumes from the unchanged meta tags. Nothing else to flip.
+   * ────────────────────────────────────────────────────────────────────────
+   */
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
 
   /*
    * 301 coverage for the legacy .html URLs of this static export, one hop

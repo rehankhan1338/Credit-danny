@@ -1110,7 +1110,7 @@ html.hb-js .hb-sticky.hb-on{opacity:1;transform:none;pointer-events:auto;}
      should fit the image exactly. Height is dropped rather than the photo
      being forced back to cover, because 460px of crop is most of a phone
      screen for one picture. */
-  #why div[style*="height: 460px"]{height:auto !important;}
+  #why div[style*="height: 460px"],#why div[style*="height:460px"]{height:auto !important;}
 
   /* Stacked reading order for the two rows whose markup order is not the
      order they should be read in. The grid stays a grid when it collapses, so

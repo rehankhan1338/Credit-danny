@@ -29,6 +29,7 @@ export function setupRevealCarousel(opts: RevealCarouselOptions): () => void {
   /* ---- the reveal cascade, ported from the export's setupReveal() ---- */
   if (!reduce && "IntersectionObserver" in window) {
     const marked: RevealEl[] = [];
+    const vh = window.innerHeight;
     document.querySelectorAll("section").forEach((section) => {
       const picked: RevealEl[] = [];
       section.querySelectorAll<RevealEl>(opts.revealSelector).forEach((el) => {
@@ -41,7 +42,12 @@ export function setupRevealCarousel(opts: RevealCarouselOptions): () => void {
           el.__floats = !!floater;
         }
         if (el.closest("[data-reveal]")) return;
-        if (el.getBoundingClientRect().height === 0) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.height === 0) return;
+        /* Never hide what the reader is already looking at: this runs after
+           hydration — long after first paint — so hiding on-screen content
+           makes the page visibly blink out. Only below-fold content reveals. */
+        if (rect.top < vh && rect.bottom > 0) return;
         el.setAttribute("data-reveal", "");
         picked.push(el);
       });
@@ -73,27 +79,51 @@ export function setupRevealCarousel(opts: RevealCarouselOptions): () => void {
       });
     }
 
+    /* Hand the element back to the stylesheet: undo everything the cascade
+       set, so the element is exactly as server-rendered. */
+    const restore = (el: RevealEl) => {
+      el.style.opacity = "";
+      if (el.__prop) el.style.removeProperty(el.__prop);
+      el.style.transition = el.__base || "";
+      el.removeAttribute("data-reveal");
+    };
+    const pending = new Set(marked);
+    const timers = new Set<number>();
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const el = e.target as RevealEl;
-          el.style.opacity = "1";
-          el.style.setProperty(el.__prop!, el.__floats ? "translateY(0)" : "0 0");
-          io.unobserve(el);
-          /* Hand the element back to the stylesheet once settled. */
-          setTimeout(() => {
-            el.style.opacity = "";
-            el.style.removeProperty(el.__prop!);
-            el.style.transition = el.__base || "";
-            el.removeAttribute("data-reveal");
-          }, 1400);
+          if (e.isIntersecting) reveal(e.target as RevealEl);
         });
       },
       { rootMargin: "0px 0px -12% 0px", threshold: 0.08 }
     );
+    function reveal(el: RevealEl) {
+      if (!pending.delete(el)) return;
+      el.style.opacity = "1";
+      el.style.setProperty(el.__prop!, el.__floats ? "translateY(0)" : "0 0");
+      io.unobserve(el);
+      const t = window.setTimeout(() => {
+        timers.delete(t);
+        restore(el);
+      }, 1400);
+      timers.add(t);
+    }
     marked.forEach((el) => io.observe(el));
-    cleanups.push(() => io.disconnect());
+
+    /* Last-resort guard (parity with the shared Reveal behavior): content
+       stranded hidden is worse than a missed animation. */
+    const guard = window.setTimeout(() => pending.forEach(reveal), 8000);
+
+    cleanups.push(() => {
+      io.disconnect();
+      window.clearTimeout(guard);
+      timers.forEach((t) => window.clearTimeout(t));
+      /* Un-hide everything on unmount. Without this, a remount (dev
+         StrictMode runs every effect setup → cleanup → setup) sees the
+         data-reveal markers from the first pass, skips every element, and
+         the still-hidden content is never observed — the page goes blank. */
+      marked.forEach(restore);
+    });
   }
 
   /* ---- the results carousel: autoplay, arrows, one card per swipe ---- */
