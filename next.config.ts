@@ -24,7 +24,8 @@ const nextConfig: NextConfig = {
 
   /*
    * ────────────────────────────────────────────────────────────────────────
-   * TEST-DOMAIN NOINDEX — REMOVE THIS ENTIRE headers() BLOCK AT LAUNCH.
+   * TEST-DOMAIN NOINDEX — REMOVE ONLY THE X-Robots-Tag ENTRY AT LAUNCH
+   * (the Cache-Control entries below it are permanent).
    *
    * While this deployment lives on a test domain, every response (Next
    * pages, public/ files, and WordPress-proxied fallbacks alike) carries
@@ -38,16 +39,40 @@ const nextConfig: NextConfig = {
    * stop Google from ever seeing the noindex, letting the URLs get indexed
    * (without content) anyway.
    *
-   * AT LAUNCH (main domain cutover): delete this headers() block, redeploy,
-   * and indexing resumes from the unchanged meta tags. Nothing else to flip.
+   * AT LAUNCH (main domain cutover): delete the X-Robots-Tag entry,
+   * redeploy, and indexing resumes from the unchanged meta tags.
    * ────────────────────────────────────────────────────────────────────────
    */
   async headers() {
+    /*
+     * Long-lived caching for the static asset tree. Vercel serves public/
+     * files with max-age=0, must-revalidate by default, so every repeat
+     * view revalidates every image/font/script. These paths are de-facto
+     * immutable — a changed asset gets a new filename (WP uploads too) —
+     * so cache them for a year. If you ever must edit one of these files
+     * IN PLACE, rename it instead. /assets/css is deliberately excluded:
+     * pages import those files through the bundler (hashed /_next/static
+     * URLs, already immutable) and the raw files change during development.
+     */
+    const IMMUTABLE_ASSET_PATHS = [
+      "/assets/img/:path*",
+      "/assets/fonts/:path*",
+      "/assets/video/:path*",
+      "/assets/js/:path*",
+      "/wp-content/uploads/:path*",
+    ];
     return [
+      // TEST-DOMAIN NOINDEX — remove this entry (only) at launch.
       {
         source: "/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      ...IMMUTABLE_ASSET_PATHS.map((source) => ({
+        source,
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      })),
     ];
   },
 
