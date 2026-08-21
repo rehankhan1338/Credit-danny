@@ -83,16 +83,36 @@ const PILL_INACTIVE: React.CSSProperties = {
   fontSize: 13,
   fontWeight: 700,
 };
-const PILL_ACTIVE: React.CSSProperties = {
+/* Live styles the "All" pill dark; the current category stays gray like the rest. */
+const PILL_ALL: React.CSSProperties = {
   ...PILL_INACTIVE,
-  background: "rgb(12, 112, 195)",
+  background: "rgb(0, 0, 0)",
   color: "rgb(255, 255, 255)",
+};
+const CTA_BASE: React.CSSProperties = {
+  fontFamily: "var(--font-display)",
+  fontWeight: 750,
+  textTransform: "uppercase",
+  letterSpacing: 0.2,
+  cursor: "pointer",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transition: "filter var(--duration-standard) var(--ease-standard), transform var(--duration-fast) var(--ease-standard)",
+  fontSize: 20,
+  padding: "12px 24px",
+  borderRadius: 10,
+  textDecoration: "none",
 };
 
 export default async function CreditInsightsArchive() {
   const category = await getCategoryBySlug("credit-insights");
   const posts = await getCategoryPosts(category.id);
+  // Live's archive page 1: newest post featured, the next 9 in the grid,
+  // everything older behind "Load more articles" (/page/2/, WP-served).
   const [featured, ...rest] = posts;
+  const gridPosts = rest.slice(0, 9);
+  const hasMore = rest.length > 9;
 
   return (
     <>
@@ -157,22 +177,28 @@ export default async function CreditInsightsArchive() {
             </div>
           )}
 
-          {/* category pills — /blog/ and the other two categories are served
-              by WordPress through the proxy, not by Next routes, so they are
-              plain <a> full navigations by design */}
-          <div className="cdb-cards-pad" style={{ padding: "40px 60px 0px", display: "flex", gap: 12, flexWrap: "wrap" }}>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <a href="/blog/" style={PILL_INACTIVE}>All Posts</a>
-            <Link href="/category/credit-insights/" style={PILL_ACTIVE}>Credit Insights</Link>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <a href="/category/mortgage-insights/" style={PILL_INACTIVE}>Mortgage Insights</a>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <a href="/category/mortgage-repair-and-prep/" style={PILL_INACTIVE}>Mortgage Repair and Prep</a>
+          {/* list header — title + category pills, verbatim from live.
+              /blog/ and the other two categories are served by WordPress
+              through the proxy, not by Next routes, so they are plain <a>
+              full navigations by design */}
+          <div style={{ padding: "56px 60px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ fontFamily: '"Podium Sharp", Impact, sans-serif', fontSize: 38, textTransform: "uppercase", color: "rgb(0, 0, 0)" }}>
+              {"Latest Articles"}
+            </div>
+            <div className="cdb-pills" style={{ display: "flex", gap: 10 }}>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/blog/" style={PILL_ALL}>All</a>
+              <Link href="/category/credit-insights/" style={PILL_INACTIVE}>Credit Insights</Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/category/mortgage-insights/" style={PILL_INACTIVE}>Mortgage Insights</a>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/category/mortgage-repair-and-prep/" style={PILL_INACTIVE}>Mortgage Repair and Prep</a>
+            </div>
           </div>
 
           {/* post grid — everything after the featured post */}
           <div id="cdb-grid" style={{ padding: "24px 60px 56px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
-            {rest.map((post) => (
+            {gridPosts.map((post) => (
               <Link key={post.id} href={postPath(post)} style={{ textDecoration: "none", color: "inherit", display: "block" }} className="cdb-card cdb-post-card">
                 <div style={{ background: "rgb(255, 255, 255)", borderRadius: 25, boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px", overflow: "hidden" }}>
                   <div style={{ height: 190, backgroundImage: `url(${featuredImage(post, "medium_large") ?? ""}), linear-gradient(160deg, rgb(0, 6, 58), rgb(0, 173, 238))`, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -189,6 +215,71 @@ export default async function CreditInsightsArchive() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* load more — /category/credit-insights/page/2/ is WP-served via
+              the proxy, so a plain <a> full navigation, as on live */}
+          {hasMore && (
+            <div style={{ display: "flex", justifyContent: "center", padding: "0px 0px 56px" }}>
+              <a id="cdb-more" href="/category/credit-insights/page/2/" style={{ ...CTA_BASE, background: "transparent", color: "rgb(0, 0, 0)", border: "2px solid rgb(0, 0, 0)" }}>
+                {"Load more articles"}
+              </a>
+            </div>
+          )}
+
+          {/* bio band — verbatim from live */}
+          <div className="cdb-bio" style={{ position: "relative", background: "rgb(255, 255, 255)", paddingTop: "96px" }}>
+            <div className="cdb-bio-photo" style={{ position: "absolute", left: "60px", width: 380, top: "0px", bottom: "0px", overflow: "hidden", zIndex: 2 }}>
+              <img src="/assets/img/danny-cutout.webp" alt="Credit Danny" style={{ position: "absolute", left: "0px", bottom: -46, height: 482, objectFit: "contain", objectPosition: "center bottom" }} />
+            </div>
+            <div className="cdb-bio-card" style={{ background: "linear-gradient(220deg, rgb(0, 0, 0) 28%, rgb(12, 112, 195) 98%)", position: "relative", overflow: "hidden", display: "grid", gridTemplateColumns: "440px 1fr", alignItems: "center", minHeight: 340 }}>
+              <div className="cdb-bio-spacer" />
+              <div className="cdb-bio-copy" style={{ position: "relative", padding: "44px 56px 44px 0px" }}>
+                <div style={{ fontFamily: '"Podium Sharp", Impact, sans-serif', fontSize: 44, lineHeight: 1.05, textTransform: "uppercase", color: "rgb(255, 255, 255)" }}>
+                  {"You're not just a file to me."}
+                </div>
+                <div style={{ fontSize: 16, lineHeight: 1.65, color: "rgba(255, 255, 255, 0.8)", maxWidth: 560, marginTop: 14 }}>
+                  {"Reading is a good start. Working with me is faster. Tell me what is on your report and I will take it from there."}
+                </div>
+                <div style={{ display: "flex", gap: 14, marginTop: 26 }}>
+                  <Link href="/get-started/" className="cdb-cta-solid" style={{ ...CTA_BASE, background: "var(--color-blue-600)", color: "rgb(255, 255, 255)", borderStyle: "none" }}>
+                    {"Start your credit review"}
+                  </Link>
+                  <Link href="/blueprint-strategy/" className="cdb-cta-ghost" style={{ ...CTA_BASE, background: "transparent", color: "rgb(255, 255, 255)", border: "2px solid rgb(255, 255, 255)" }}>
+                    {"Book a Consultation"}
+                  </Link>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 26 }}>
+                  <div style={{ display: "flex", gap: 4 }}>
+                    {[0, 1, 2, 3, 4].map((n) => (
+                      <span key={n}>
+                        <svg width="18" height="18" viewBox="0 0 34 34" fill="var(--color-gold)">
+                          <path d="M17 0L20.817 11.747L33.168 11.747L23.176 19.007L26.992 30.753L17 23.493L7.008 30.753L10.824 19.007L0.832 11.747L13.183 11.747L17 0Z" />
+                        </svg>
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255, 255, 255, 0.8)" }}>
+                    {"200+ five-star Google reviews • $30 Million+ in funding unlocked"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* sticky bottom bar — verbatim from live */}
+          <div style={{ position: "sticky", bottom: "0px", zIndex: 5, background: "rgb(0, 0, 0)", padding: "18px 60px", display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid rgba(255, 255, 255, 0.15)" }}>
+            <div className="cdb-bar-inner" style={{ maxWidth: 1200, margin: "0 auto", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+              <div style={{ fontFamily: '"Podium Sharp", Impact, sans-serif', fontSize: 22, textTransform: "uppercase", color: "rgb(255, 255, 255)" }}>
+                {"Ready to fix your credit?"}
+                <span className="cdb-bar-rest">{" Let's build your blueprint."}</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <Link href="/get-started/" className="cdb-bar-cta" style={{ fontFamily: "var(--font-display)", fontWeight: 750, fontSize: 16, letterSpacing: "0.05em", textTransform: "uppercase", color: "rgb(255,255,255)", background: "rgb(11,113,195)", border: "1px solid rgb(255,255,255)", padding: "12px 27px", borderRadius: 16, display: "inline-flex", alignItems: "center", justifyContent: "center", cursor: "pointer", textDecoration: "none", boxShadow: "rgba(11,113,195,0.55) 0px 8px 28px,rgba(11,113,195,0.45) 0px 2px 10px", transition: "background 200ms cubic-bezier(0.4,0,0.2,1),color 200ms cubic-bezier(0.4,0,0.2,1)" }}>
+                  {"Get Started"}
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

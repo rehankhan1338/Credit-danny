@@ -150,10 +150,12 @@ export default function PlansPage() {
                 </span>
               </div>
               <h2 style={{ "margin": "0px", "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "fontSize": "64px", "lineHeight": "1", "color": "rgb(255, 255, 255)", "textShadow": "rgba(0, 0, 0, 0.6) 0px 2px 14px" }} className="pl-h2-lg">
-                {"The Credit Danny "}
-                <span style={{ "color": "var(--color-blue-600)" }}>
-                  {"Blueprint"}
-                </span>
+                <Link href="/blueprint/" className="pl-h2-link">
+                  {"The Credit Danny "}
+                  <span style={{ "color": "var(--color-blue-600)" }}>
+                    {"Blueprint"}
+                  </span>
+                </Link>
               </h2>
               <div style={{ "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "fontSize": "30px", "lineHeight": "1.1", "color": "rgb(255, 255, 255)" }} className="pl-kicker">
                 {"Work Directly With Credit Danny"}
@@ -419,6 +421,10 @@ export default function PlansPage() {
                   {"Apply for the Credit Danny Blueprint"}
                 </span>
               </Link>
+              <Link href="/blueprint/" className="pl-learn">
+                {"Learn More"}
+                <span className="pl-learn-arrow" aria-hidden="true">{"›"}</span>
+              </Link>
               {" "}
               <div style={{ "fontFamily": "var(--font-body)", "fontWeight": "700", "fontSize": "13px", "letterSpacing": "2px", "textTransform": "uppercase", "color": "rgba(255, 255, 255, 0.75)" }}>
                 {"Pricing Determined After File Review • Limited Enrollment"}
@@ -439,7 +445,9 @@ export default function PlansPage() {
                 </span>
               </div>
               <h2 style={{ "margin": "0px", "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "fontSize": "64px", "lineHeight": "1", "color": "rgb(255, 255, 255)", "textShadow": "rgba(0, 0, 0, 0.6) 0px 2px 14px" }} className="pl-h2-lg">
-                {"Credit Accelerator 🚀"}
+                <Link href="/accelerator/" className="pl-h2-link">
+                  {"Credit Accelerator 🚀"}
+                </Link>
               </h2>
               <div style={{ "maxWidth": "640px", "fontSize": "15px", "lineHeight": "1.75", "color": "rgba(255, 255, 255, 0.85)" }}>
                 {"Perfect for people who want a done-for-you credit repair experience without the commitment of our VIP program."}
@@ -581,11 +589,15 @@ export default function PlansPage() {
                 </div>
               </div>
             </div>
-            <div style={{ "display": "flex", "justifyContent": "center" }}>
+            <div className="pl-cta-stack" style={{ "display": "flex", "justifyContent": "center" }}>
               {" "}
               <a target="_blank" rel="noopener noreferrer" href="https://link.creditdanny.com/payment-link/6a23442771a0aa761e463451" className="pl-cta-ghost pl-cta scp2" style={{ "display": "inline-flex", "alignItems": "center", "justifyContent": "center", "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "letterSpacing": "0.2px", "fontSize": "24px", "padding": "14px 30px", "borderRadius": "10px", "background": "rgb(255, 255, 255)", "color": "var(--color-blue-600)", "textDecoration": "none", "boxShadow": "rgba(12, 112, 195, 0.5) 0px 0px 24px", "transition": "background 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out" }}>
                 {"Start My Credit Transformation"}
               </a>
+              <Link href="/accelerator/" className="pl-learn">
+                {"Learn More"}
+                <span className="pl-learn-arrow" aria-hidden="true">{"›"}</span>
+              </Link>
               {" "}
             </div>
           </div>
@@ -602,7 +614,9 @@ export default function PlansPage() {
                 </span>
               </div>
               <h2 style={{ "margin": "0px", "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "fontSize": "64px", "lineHeight": "1", "color": "rgb(255, 255, 255)", "textShadow": "rgba(0, 0, 0, 0.6) 0px 2px 14px" }} className="pl-h2-lg">
-                {"The Sponsorship Program 🤝"}
+                <Link href="/sponsorship/" className="pl-h2-link">
+                  {"The Sponsorship Program 🤝"}
+                </Link>
               </h2>
               <div style={{ "maxWidth": "720px", "fontSize": "15px", "lineHeight": "1.75", "color": "rgba(255, 255, 255, 0.85)" }}>
                 {"A limited opportunity for qualified applicants to receive credit restoration support at little to no cost while becoming part of the Credit Danny community."}
@@ -685,10 +699,14 @@ export default function PlansPage() {
                 </div>
               </div>
             </div>
-            <div style={{ "display": "flex", "justifyContent": "center" }}>
+            <div className="pl-cta-stack" style={{ "display": "flex", "justifyContent": "center" }}>
               {" "}
               <Link href="/sponsorship-apply/" className="pl-cta-solid pl-cta scp2" style={{ "display": "inline-flex", "alignItems": "center", "justifyContent": "center", "fontFamily": "var(--font-display)", "fontWeight": "750", "textTransform": "uppercase", "letterSpacing": "0.2px", "fontSize": "24px", "padding": "14px 30px", "borderRadius": "10px", "background": "var(--color-blue-600)", "color": "rgb(255, 255, 255)", "textDecoration": "none", "boxShadow": "rgba(12, 112, 195, 0.5) 0px 0px 24px", "transition": "background 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out" }}>
                 {"Apply for Sponsorship"}
+              </Link>
+              <Link href="/sponsorship/" className="pl-learn">
+                {"Learn More"}
+                <span className="pl-learn-arrow" aria-hidden="true">{"›"}</span>
               </Link>
               {" "}
             </div>
@@ -1204,7 +1222,7 @@ export default function PlansPage() {
                 {"Elevate Your Life."}
               </span>
             </h2>
-            <div style={{ "display": "flex", "alignItems": "flex-start", "gap": "10px", "marginTop": "30px" }}>
+            <div className="cd-address" style={{ "display": "flex", "alignItems": "flex-start", "gap": "10px", "marginTop": "30px" }}>
               {" "}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C70C3" strokeWidth="1.8" style={{ "flex": "0 0 auto", "marginTop": "3px" }}>
                 <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" />

@@ -419,7 +419,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section id="results" data-screen-label="Real people real results" style={{ "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "padding": "100px 40px" }} className="cd-pad">
+        <section id="results" data-screen-label="Real people real results" style={{ "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "padding": "50px 40px" }} className="cd-pad">
           <div style={{ "maxWidth": "1280px", "margin": "0px auto", "textAlign": "center", "display": "flex", "flexDirection": "column", "gap": "14px", "alignItems": "center" }}>
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(0, 173, 238)" }}>
@@ -673,7 +673,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <section id="why" data-screen-label="What we can remove" style={{ "padding": "100px 0px", "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)" }}>
+        <section id="why" data-screen-label="What we can remove" style={{ "padding": "50px 0px", "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)" }}>
           <div style={{ "maxWidth": "1280px", "margin": "0px auto", "padding": "0px 40px" }} className="cd-inner-pad">
             <h2 style={{ "margin": "0px auto 28px", "maxWidth": "900px", "fontFamily": "var(--font-display)", "textTransform": "uppercase", "fontSize": "clamp(38px, 4.4vw, 62px)", "lineHeight": "0.94", "color": "rgb(255, 255, 255)", "textAlign": "center" }} className="cd-sechead">
               {"See Why We're The"}
@@ -890,7 +890,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <section id="danny" data-screen-label="Meet Credit Danny" style={{ "background": "rgb(0, 0, 0)", "padding": "100px 40px" }} className="cd-pad">
+        <section id="danny" data-screen-label="Meet Credit Danny" style={{ "background": "rgb(0, 0, 0)", "padding": "50px 40px" }} className="cd-pad">
           <div style={{ "maxWidth": "1180px", "margin": "0px auto", "display": "grid", "gridTemplateColumns": "0.9fr 1.1fr", "gap": "70px", "alignItems": "center" }} className="cd-danny-grid">
             <div style={{ "position": "relative", "display": "grid", "placeItems": "end center" }}>
               <div style={{ "position": "absolute", "width": "92%", "aspectRatio": "1 / 1", "borderRadius": "50%", "background": "radial-gradient(circle, rgba(12, 112, 195, 0.55), rgba(0, 0, 0, 0) 70%)", "animation": "5s ease-in-out 0s infinite normal none running cd-glow" }} />
@@ -938,7 +938,9 @@ export default function HomePage() {
             </span>
             {" "}
             <h2 style={{ "margin": "0px", "fontFamily": "var(--font-display)", "fontSize": "clamp(38px, 4.4vw, 62px)", "lineHeight": "0.94", "textTransform": "uppercase", "color": "rgb(255, 255, 255)" }} className="cd-sechead">
-              {"What We've Done for Our Clients"}
+              {"What We've Done"}
+              <br className="cd-mbr" />
+              {" for Our Clients"}
             </h2>
           </div>
           <div style={{ "maxWidth": "1280px", "margin": "44px auto 0px", "display": "grid", "gridTemplateColumns": "repeat(3, 1fr)", "gap": "20px" }} className="cd-trio">
@@ -1094,7 +1096,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section id="reviews" data-screen-label="Reviews" style={{ "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)", "padding": "45px 40px 90px" }} className="cd-pad">
+        <section id="reviews" data-screen-label="Reviews" style={{ "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)", "padding": "22px 40px 45px" }} className="cd-pad">
           <div style={{ "maxWidth": "900px", "margin": "0px auto", "textAlign": "center", "display": "flex", "flexDirection": "column", "gap": "16px", "alignItems": "center" }} className="cd-reviews-box">
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(12, 112, 195)" }}>
@@ -1118,7 +1120,7 @@ export default function HomePage() {
             <TrustindexWidget src="https://cdn.trustindex.io/loader.js?08ef8816382532577666329ed3b" />
           </div>
         </section>
-        <section id="plans" data-screen-label="Three ways" style={{ "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "padding": "110px 40px" }} className="cd-pad">
+        <section id="plans" data-screen-label="Three ways" style={{ "background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "padding": "55px 40px" }} className="cd-pad">
           <div style={{ "maxWidth": "1280px", "margin": "0px auto", "textAlign": "center", "display": "flex", "flexDirection": "column", "gap": "12px", "alignItems": "center" }}>
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(0, 173, 238)" }}>
@@ -1126,7 +1128,9 @@ export default function HomePage() {
             </span>
             {" "}
             <h2 style={{ "margin": "0px", "fontFamily": "var(--font-display)", "fontSize": "clamp(38px, 4.4vw, 62px)", "lineHeight": "0.94", "textTransform": "uppercase", "color": "rgb(255, 255, 255)" }} className="cd-sechead">
-              {"Three Ways To Transform Your Credit"}
+              {"Three Ways To"}
+              <br className="cd-mbr" />
+              {" Transform Your Credit"}
             </h2>
           </div>
           <div style={{ "maxWidth": "1280px", "margin": "56px auto 0px", "display": "grid", "gridTemplateColumns": "repeat(3, 1fr)", "gap": "26px", "alignItems": "stretch" }} className="cd-trio">
@@ -1385,7 +1389,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section id="guarantee" data-screen-label="Guarantee" style={{ "position": "relative", "background": "linear-gradient(150deg, rgb(0, 0, 0) 0%, rgb(0, 35, 79) 55%, rgb(12, 112, 195) 100%)", "padding": "110px 40px", "overflow": "hidden" }} className="cd-pad">
+        <section id="guarantee" data-screen-label="Guarantee" style={{ "position": "relative", "background": "linear-gradient(150deg, rgb(0, 0, 0) 0%, rgb(0, 35, 79) 55%, rgb(12, 112, 195) 100%)", "padding": "55px 40px", "overflow": "hidden" }} className="cd-pad">
           <div style={{ "position": "relative", "maxWidth": "860px", "margin": "0px auto", "textAlign": "center", "display": "flex", "flexDirection": "column", "gap": "16px", "alignItems": "center" }}>
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(0, 173, 238)" }}>
@@ -1423,7 +1427,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section data-screen-label="Value props" style={{ "background": "rgb(0, 0, 0)", "padding": "100px 40px" }} className="cd-pad">
+        <section data-screen-label="Value props" style={{ "background": "rgb(0, 0, 0)", "padding": "50px 40px" }} className="cd-pad">
           <div style={{ "maxWidth": "1280px", "margin": "0px auto", "display": "grid", "gridTemplateColumns": "repeat(4, 1fr)", "gap": "20px" }} className="cd-vprops cd-quad">
             <div className="scpd" style={{ "position": "relative", "background": "linear-gradient(160deg, rgba(12, 112, 195, 0.28), rgba(8, 30, 52, 0.32) 55%, rgba(10, 14, 22, 0.4))", "backdropFilter": "blur(26px)", "border": "1px solid rgba(0, 173, 238, 0.35)", "borderRadius": "20px", "padding": "32px", "display": "flex", "flexDirection": "column", "gap": "12px", "boxShadow": "rgba(255, 255, 255, 0.28) 0px 1px 0px inset, rgba(12, 112, 195, 0.16) 0px 0px 40px inset, rgba(0, 0, 0, 0.45) 0px 14px 40px", "overflow": "hidden", "cursor": "pointer" }}>
               <div style={{ "width": "100%", "height": "150px", "marginBottom": "6px" }} data-lottie="/assets/js/lottie/lottie-credit-score.json" data-lottie-fit="meet" />
@@ -1463,7 +1467,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section id="stories" data-screen-label="Transformations" style={{ "position": "relative", "background": "linear-gradient(rgb(0, 0, 0), rgb(7, 21, 39) 40%, rgb(0, 0, 0))", "overflow": "hidden", "paddingBottom": "70px" }}>
+        <section id="stories" data-screen-label="Transformations" style={{ "position": "relative", "background": "linear-gradient(rgb(0, 0, 0), rgb(7, 21, 39) 40%, rgb(0, 0, 0))", "overflow": "hidden", "paddingBottom": "35px" }}>
           <div style={{ "position": "relative", "maxWidth": "1200px", "margin": "0px auto", "padding": "35px 40px 0px", "textAlign": "center" }} className="cd-inner-pad">
             {" "}
             <span style={{ "display": "block", "marginBottom": "18px", "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(12, 112, 195)" }}>
@@ -1733,7 +1737,7 @@ export default function HomePage() {
             {" "}
           </div>
         </section>
-        <section data-screen-label="Why choose" style={{ "position": "relative", "background": "linear-gradient(rgb(0, 0, 0) 0%, rgb(3, 22, 48) 50%, rgb(0, 0, 0) 100%)", "padding": "110px 40px", "overflow": "hidden" }} className="cd-pad">
+        <section data-screen-label="Why choose" style={{ "position": "relative", "background": "linear-gradient(rgb(0, 0, 0) 0%, rgb(3, 22, 48) 50%, rgb(0, 0, 0) 100%)", "padding": "55px 40px", "overflow": "hidden" }} className="cd-pad">
           <div style={{ "position": "relative", "maxWidth": "900px", "margin": "0px auto", "textAlign": "center", "display": "flex", "flexDirection": "column", "gap": "16px", "alignItems": "center" }}>
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(0, 173, 238)" }}>
@@ -1932,7 +1936,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <section id="faq" data-screen-label="FAQ" style={{ "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)", "padding": "110px 40px" }} className="cd-pad">
+        <section id="faq" data-screen-label="FAQ" style={{ "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)", "padding": "55px 40px" }} className="cd-pad">
           <div style={{ "maxWidth": "860px", "margin": "0px auto", "display": "flex", "flexDirection": "column", "gap": "12px", "alignItems": "center", "textAlign": "center" }}>
             {" "}
             <span style={{ "fontSize": "12px", "fontWeight": "700", "letterSpacing": "0.24em", "textTransform": "uppercase", "color": "rgb(12, 112, 195)" }}>
@@ -2058,7 +2062,7 @@ export default function HomePage() {
                 {"Elevate Your Life."}
               </span>
             </h2>
-            <div style={{ "display": "flex", "alignItems": "flex-start", "gap": "10px", "marginTop": "30px" }}>
+            <div className="cd-address" style={{ "display": "flex", "alignItems": "flex-start", "gap": "10px", "marginTop": "30px" }}>
               {" "}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C70C3" strokeWidth="1.8" style={{ "flex": "0 0 auto", "marginTop": "3px" }}>
                 <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" />

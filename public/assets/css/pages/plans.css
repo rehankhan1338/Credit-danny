@@ -996,7 +996,7 @@ html.pl-js .pl-reveal.pl-in{opacity:1;transform:none;}
      content-box, and `width:100%` plus 22px of side padding made the button
      44px WIDER than its container. */
   .pl-cta{font-size:18px!important;padding:15px 22px!important;
-    width:100%!important;box-sizing:border-box!important;
+    width:auto!important;max-width:100%!important;box-sizing:border-box!important;
     justify-content:center!important;text-align:center!important;}
 
   /* THE COMPARISON TABLE stays a table. Collapsing it to stacked cards would
@@ -1085,6 +1085,21 @@ html.pl-js .pl-reveal.pl-in{opacity:1;transform:none;}
                     border-color 420ms ease-out,
                     opacity 700ms cubic-bezier(.16,.84,.44,1)!important;}
 .pl-cmp-row{transition:background-color 200ms ease-out;}
+
+/* Synced from live creditdanny.com (fetched 2026-08-20): the three plan
+   headings link to their program pages, and each CTA gained a quiet
+   "Learn More ›" companion stacked under it. */
+.pl-h2-link{color:inherit!important;text-decoration:none!important;
+  transition:color 200ms ease-out;}
+.pl-cta-stack{flex-direction:column!important;align-items:center!important;
+  gap:24px!important;}
+.pl-learn{display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-size:15px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.72)!important;
+  text-decoration:none!important;
+  transition:color 200ms ease-out,gap 200ms cubic-bezier(.16,.84,.44,1);}
+.pl-learn-arrow{font-size:20px;line-height:1;transform:translateY(-1px);}
+
 .pl-cta{transition:transform 260ms cubic-bezier(.16,.84,.44,1),
                    box-shadow 260ms ease-out,
                    background 200ms ease-out, color 200ms ease-out!important;}
@@ -1140,6 +1155,8 @@ html.pl-js .pl-reveal.pl-in{opacity:1;transform:none;}
   .pl-cta:active{transform:translateY(0)!important;
     box-shadow:rgba(12,112,195,.55) 0 2px 14px!important;
     transition-duration:90ms!important;}
+  .pl-h2-link:hover{color:var(--color-blue-500)!important;}
+  .pl-learn:hover{color:#fff!important;gap:14px;}
 }
 
 /* Reduced motion keeps the feedback and drops the movement. The shadow still

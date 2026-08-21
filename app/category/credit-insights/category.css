@@ -1,25 +1,130 @@
-/* Credit Insights archive — ported from the live WP archive's inline rules */
-#cdb .cdb-feat-link { height: 100%; display: block; }
-#cdb .cdb-feat-img { height: 100% !important; }
-.cdb-short { display: none; }
-.cdb-long { display: inline; }
+/* Credit Insights archive — ported from the live WP archive's inline rules
+   (creditdanny.com/category/credit-insights/, fetched 2026-08-20).
+   Every [style*=…] selector is doubled with a no-space variant: the live DOM
+   serializes declarations as "padding: 0px 60px" but React renders
+   "padding:0px 60px". */
 
-#cdb .cdb-post-card > div {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-#cdb .cdb-post-card:hover > div {
-  transform: translateY(-4px);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 28px;
+/* Content column: the 60px-padded bands cap at 1320px and center. */
+#cdb [style*="padding: 0px 60px"], #cdb [style*="padding:0px 60px"],
+#cdb [style*="padding: 24px 60px 56px"], #cdb [style*="padding:24px 60px 56px"],
+#cdb [style*="padding: 56px 60px 20px"], #cdb [style*="padding:56px 60px 20px"],
+#cdb [style*="padding: 64px 60px 150px"], #cdb [style*="padding:64px 60px 150px"],
+#cdb [style*="padding: 44px 60px 56px"], #cdb [style*="padding:44px 60px 56px"],
+#cdb [style*="padding: 52px 60px 40px"], #cdb [style*="padding:52px 60px 40px"],
+#cdb [style*="padding: 28px 60px 64px"], #cdb [style*="padding:28px 60px 64px"]{
+  max-width:1320px !important;margin-left:auto !important;margin-right:auto !important;
+  box-sizing:border-box !important;}
+
+/* Bio band: the gradient card spans the viewport, its content sits in a
+   1200px column; the photo strip rides the same column's left edge. */
+#cdb .cdb-bio-card{
+  padding-left:max(0px, calc((100% - 1200px) / 2)) !important;
+  padding-right:max(0px, calc((100% - 1200px) / 2)) !important;
+  box-sizing:border-box !important;}
+#cdb .cdb-bio-photo{
+  left:max(0px, calc((100% - 1200px) / 2)) !important;}
+#cdb .cdb-bar-inner{max-width:1200px;margin:0 auto;}
+#cdb .cdb-bar-cta:hover{
+  background:#ffffff !important;color:var(--color-blue-600) !important;}
+#cdb .cdb-cta-solid{
+  box-shadow:0 0 24px rgba(12,112,195,.55);
+  transition:background .2s ease,color .2s ease,box-shadow .2s ease;}
+#cdb .cdb-cta-solid:hover{
+  background:#fff !important;
+  color:var(--color-blue-600) !important;
+  box-shadow:0 0 30px rgba(12,112,195,.7);}
+#cdb .cdb-cta-ghost{
+  transition:background .2s ease,color .2s ease,border-color .2s ease;}
+#cdb .cdb-cta-ghost:hover{
+  background:#fff !important;
+  color:var(--color-blue-600) !important;
+  border-color:#fff !important;}
+@media (prefers-reduced-motion:reduce){
+  #cdb .cdb-cta-solid,#cdb .cdb-cta-ghost{transition:none}
 }
 
-@media (max-width: 1100px) {
-  #cdb-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  #cdb .cdb-feat-wrap { grid-template-columns: 1fr !important; }
-}
-@media (max-width: 700px) {
-  #cdb-grid { grid-template-columns: 1fr !important; padding-left: 24px !important; padding-right: 24px !important; }
-  #cdb .cdb-hero-pad { padding-left: 24px !important; padding-right: 24px !important; }
-  #cdb .cdb-cards-pad { padding-left: 24px !important; padding-right: 24px !important; }
-  .cdb-long { display: none; }
-  .cdb-short { display: inline; }
+#cdb .cdb-feat-link{height:100%;display:block;}
+#cdb .cdb-feat-img{height:100% !important;}
+.cdb-short{display:none;}
+.cdb-long{display:inline;}
+
+#cdb a{text-decoration:none;}
+#cdb .cdb-card{transition:transform 200ms ease, box-shadow 200ms ease;}
+#cdb .cdb-card:hover{transform:translateY(-4px);}
+
+@media (max-width:900px){
+  /* Post cards become horizontal rows: 120px thumbnail beside the copy. */
+  #cdb .cdb-post-card > div{
+    display:grid !important;grid-template-columns:120px 1fr !important;}
+  #cdb .cdb-post-card > div > div:first-child{
+    height:auto !important;min-height:100% !important;
+    background-size:cover !important;background-position:center !important;}
+  #cdb .cdb-post-card > div > div:last-child{padding:16px 16px 18px !important;}
+  #cdb .cdb-post-card [style*="font-size: 12px"],
+  #cdb .cdb-post-card [style*="font-size:12px"]{
+    font-size:11px !important;letter-spacing:1.2px !important;}
+  #cdb .cdb-post-card [style*="font-size: 25px"],
+  #cdb .cdb-post-card [style*="font-size:25px"]{
+    font-size:20px !important;margin-top:8px !important;}
+  #cdb .cdb-post-card [style*="font-size: 13px"],
+  #cdb .cdb-post-card [style*="font-size:13px"]{font-size:12px !important;}
+  #cdb .cdb-long{display:none !important;}
+  #cdb .cdb-short{display:inline !important;}
+
+  #cdb [style*="padding: 0px 60px"], #cdb [style*="padding:0px 60px"],
+  #cdb [style*="padding: 24px 60px 56px"], #cdb [style*="padding:24px 60px 56px"],
+  #cdb [style*="padding: 56px 60px 20px"], #cdb [style*="padding:56px 60px 20px"],
+  #cdb [style*="padding: 64px 60px 150px"], #cdb [style*="padding:64px 60px 150px"],
+  #cdb [style*="padding: 18px 60px"], #cdb [style*="padding:18px 60px"]{
+    padding-left:20px !important;padding-right:20px !important;}
+  #cdb [style*="padding: 64px 60px 150px"],
+  #cdb [style*="padding:64px 60px 150px"]{padding-bottom:44px !important;}
+  #cdb [style*="margin-top: -110px"],
+  #cdb [style*="margin-top:-110px"]{margin-top:0 !important;}
+  #cdb [style*="grid-template-columns"]{
+    grid-template-columns:minmax(0,1fr) !important;gap:20px !important;}
+  #cdb [style*="font-size: 82px"],
+  #cdb [style*="font-size:82px"]{font-size:42px !important;line-height:1.02 !important;}
+  #cdb [style*="font-size: 38px"],
+  #cdb [style*="font-size:38px"]{font-size:30px !important;}
+  #cdb [style*="font-size: 34px"],
+  #cdb [style*="font-size:34px"]{font-size:30px !important;line-height:1.06 !important;}
+
+  /* Pills scroll sideways instead of wrapping. */
+  #cdb .cdb-pills{
+    overflow-x:auto !important;flex-wrap:nowrap !important;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding-bottom:4px !important;}
+  #cdb .cdb-pills::-webkit-scrollbar{display:none;}
+  #cdb .cdb-pills > a{flex:0 0 auto !important;white-space:nowrap !important;}
+
+  /* Bio band collapses to one column; the cutout shrinks to a 116px strip. */
+  #cdb .cdb-bio-card{grid-template-columns:minmax(0,1fr) !important;}
+  #cdb .cdb-bio-spacer{display:none !important;}
+  #cdb .cdb-bio-photo{
+    display:block !important;left:0 !important;width:116px !important;
+    top:auto !important;bottom:0 !important;height:100% !important;}
+  #cdb .cdb-bio-photo img{
+    left:-8px !important;bottom:0 !important;height:100% !important;
+    max-height:230px !important;width:auto !important;
+    object-position:left bottom !important;}
+  #cdb .cdb-bio-copy{
+    padding:24px 20px 24px 124px !important;min-height:200px !important;}
+
+  /* Sticky bar: title shortens, CTA hugs the right edge. */
+  #cdb [style*="position: sticky"][style*="bottom: 0px"],
+  #cdb [style*="position:sticky"][style*="bottom:0px"]{
+    flex-direction:row !important;padding:12px 20px !important;
+    text-align:left !important;}
+  #cdb .cdb-bar-inner{
+    flex-direction:row !important;flex-wrap:nowrap !important;
+    gap:12px !important;align-items:center !important;}
+  #cdb .cdb-bar-rest{display:none !important;}
+  #cdb .cdb-bar-inner > div:first-child{
+    font-size:15px !important;line-height:1.15 !important;
+    min-width:0 !important;flex:1 1 auto !important;}
+  #cdb .cdb-bar-cta{
+    flex:0 0 auto !important;margin-left:auto !important;
+    padding:10px 16px !important;font-size:13px !important;
+    white-space:nowrap !important;}
 }

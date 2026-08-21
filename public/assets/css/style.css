@@ -160,3 +160,29 @@ section:not(#apply):not([data-screen-label="Proof band"]):not([data-screen-label
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;
 }
+
+/* ---- header top bar ---------------------------------------------------------
+   Ported from the live site (creditdanny.com, fetched 2026-08-20). The bar must
+   stay on ONE line: links never wrap, and instead of shrinking, the two longest
+   links drop out one by one as the viewport narrows — they remain reachable in
+   the full-screen More menu. At ≤900px the mobile bar in
+   assets/css/pages/<page>.css takes over. Scoped to header#top: the legal pages
+   still use the Elementor header, which this must not touch. The live selectors
+   use slash-less hrefs (/accelerator); ours carry a trailing slash. */
+header#top nav a { white-space: nowrap; }
+@media (max-width: 1319px) {
+  header#top nav a[href="/accelerator/"] { display: none !important; }
+}
+@media (max-width: 1099px) {
+  header#top nav a[href="/sponsorship/"] { display: none !important; }
+}
+
+/* Also from live (every cd page carries these): the mobile bar is 72px, not
+   the desktop 92px, and anchor targets compensate for the shorter bar. The
+   footer's address block stays left-aligned even where the mobile layout
+   centers everything around it. */
+@media (max-width: 900px) {
+  header#top > div { height: 72px !important; }
+  section[id], [id="top"] { scroll-margin-top: 84px; }
+}
+.cd-address { text-align: left !important; }

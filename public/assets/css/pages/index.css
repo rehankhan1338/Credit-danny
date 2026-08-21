@@ -1594,3 +1594,35 @@ wistia-player[media-id='o3uudfqzob']:not(:defined){display:block;position:absolu
     margin-top:38px !important;
   }
 }
+
+/* ---- synced from live creditdanny.com (fetched 2026-08-20) ----------------
+   Rules the live homepage added after this file was first ported. Kept
+   verbatim so future live-vs-port diffs stay clean. */
+.cd-mbr{display:none;}
+@media (max-width:900px){
+  .cd-mbr{display:inline;}
+
+  [data-screen-label="Three ways"] h2{
+    font-size:min(50px, calc(12.3vw - 5.2px)) !important;
+    line-height:0.94 !important;
+  }
+
+  [data-screen-label="Impact stats"] h2{
+    font-size:min(50px, calc(17.5vw - 7px)) !important;
+    line-height:0.94 !important;
+  }
+
+  [data-screen-label="Logo marquee"]{ padding:22px 0 !important; }
+  [data-screen-label="Logo marquee"] > div{ animation-duration:11s !important; }
+  [data-screen-label="Logo marquee"] > div > div{
+    gap:30px !important; padding-right:30px !important;
+  }
+  [data-screen-label="Logo marquee"] > div > div > div{
+    flex:0 0 auto !important; width:auto !important; height:54px !important;
+  }
+  [data-screen-label="Logo marquee"] img{
+    width:auto !important; height:54px !important;
+  }
+}
+/* header height / scroll-margin / .cd-address moved to ../style.css — they are
+   site-wide on live, not homepage-only. */
